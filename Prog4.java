@@ -88,8 +88,9 @@ public class Prog4 {
                 break;
             case 4:
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println("Enter start and end date: ")
+                System.out.println("Enter start date: ");
                 date1 = reader.readLine();
+                System.out.println("Enter end date: ");
                 date2 = reader.readLine();
                 query = String.format(Queries.query4, date1, date2);
                 break;
