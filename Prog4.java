@@ -81,12 +81,17 @@ public class Prog4 {
                 query = String.format(Queries.query2, date, date);
                 break;
             case 3:
-                // TODO: Insert params into the prepped query
-                query = Queries.query3;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("Enter start date: ")
+                date = reader.readLine();
+                query = String.format(Queries.query3, date, date);
                 break;
             case 4:
-                // TODO: Insert params into the prepped query
-                query = Queries.query4;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("Enter start and end date: ")
+                date1 = reader.readLine();
+                date2 = reader.readLine();
+                query = String.format(Queries.query4, date1, date2);
                 break;
             case 5:
                 // TODO: Insert params into the prepped query
