@@ -40,7 +40,7 @@ CASE WHEN c.isStudent = 1 THEN 'Student'
 FROM Hotel.Client c
 INNER JOIN Hotel.Booking b ON c.clientId = b.clientId
 INNER JOIN Hotel.Room r ON b.roomId = r.roomId AND b.hotelId = r.hotelId
-WHERE b.startDate <= %s AND b.endDate >= %s
+WHERE b.startDate <= TO_DATE('%s','YYYY-MM-DD') AND b.endDate >= TO_DATE('%s','YYYY-MM-DD')
 ORDER BY r.roomId, CustomerCategory;		
 """;
 
@@ -55,7 +55,7 @@ CASE WHEN c.isStudent = 1 THEN 'Student'
 FROM Hotel.Client c
 INNER JOIN Hotel.Booking b ON c.clientId = b.clientId
 INNER JOIN Hotel.Room r ON b.roomId = r.roomId AND b.hotelId = r.hotelId
-WHERE b.startDate <= %s AND b.endDate >= %s
+WHERE b.startDate <= TO_DATE('%s','YYYY-MM-DD') AND b.endDate >= TO_DATE('%s','YYYY-MM-DD')
 ORDER BY r.roomId, CustomerCategory;
 		
 """;
@@ -67,7 +67,7 @@ ORDER BY r.roomId, CustomerCategory;
 """
 SELECT a.amenityName, AVG(r.rating) AS AverageRating
 FROM Hotel.Amenity a
-INNER JOIN Hotel.Rating r ON a.amenityId = r.amenityId AND r.dateStart >= %s AND r.dateStart <= %s
+INNER JOIN Hotel.Rating r ON a.amenityId = r.amenityId AND r.dateStart >= TO_DATE('%s','YYYY-MM-DD') AND r.dateStart <= TO_DATE('%s','YYYY-MM-DD')
 GROUP BY a.amenityName
 ORDER BY AverageRating DESC;
 				

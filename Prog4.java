@@ -68,11 +68,17 @@ public class Prog4 {
         String query = "";
         switch (queryNum) {
             case 1:
-                query = Queries.query1;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("Enter clientId: ");
+                input = reader.readLine();
+                int clientId = Integer.parseInt(input);
+                query = String.format(Queries.query1, clientId, clientId);
                 break;
             case 2:
-                // TODO: Insert params into the prepped query
-                query = Queries.query2;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("Enter date: ")
+                date = reader.readLine();
+                query = String.format(Queries.query2, date, date);
                 break;
             case 3:
                 // TODO: Insert params into the prepped query
