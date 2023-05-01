@@ -62,7 +62,7 @@ CREATE TABLE Hotel.Employee (
 
 CREATE TABLE Hotel.Shift (
 	employeeId INT,
-	dateStart DATETIME
-	dateEnd DATETIME
+	dateStart DATETIME,
+	dateEnd DATETIME,
 	PRIMARY KEY(employeeId, dateStart)
 );
