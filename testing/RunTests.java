@@ -41,7 +41,7 @@ public class RunTests {
     }
 
     public static void runAllTests() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             String query = "./testing/queries/query" + (i + 1);
             System.out.println("runAllTests" + query);
             runQuery(query);
