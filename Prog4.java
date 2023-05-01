@@ -35,6 +35,7 @@ public class Prog4 {
         }
     }
 
+    // TODO: Query parameters need sanitization?
     public void runQuery(int queryNum) {
 
         final String oracleURL = // Magic lectura -> aloe access spell
@@ -71,37 +72,42 @@ public class Prog4 {
         String date1 = "";
         String date2 = "";
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-        switch (queryNum) {
-            case 1:
-                System.out.println("Enter clientId: ");
-                input = r.readLine();
-                int clientId = Integer.parseInt(input);
-                query = String.format(Queries.query1, clientId, clientId);
-                break;
-            case 2:
-                System.out.println("Enter date: ");
-                date = r.readLine();
-                query = String.format(Queries.query2, date, date);
-                break;
-            case 3:
-                System.out.println("Enter start date: ");
-                date = r.readLine();
-                query = String.format(Queries.query3, date, date);
-                break;
-            case 4:
-                System.out.println("Enter start date: ");
-                date1 = r.readLine();
-                System.out.println("Enter end date: ");
-                date2 = r.readLine();
-                query = String.format(Queries.query4, date1, date2);
-                break;
-            case 5:
-                // TODO: Insert params into the prepped query
-                query = Queries.query5;
-                break;
-            default:
-                System.err.println("Invalid query number");
-                break;
+        try {
+            switch (queryNum) {
+                case 1:
+                    System.out.println("Enter clientId: ");
+                    input = r.readLine();
+                    int clientId = Integer.parseInt(input);
+                    query = String.format(Queries.query1, clientId, clientId);
+                    break;
+                case 2:
+                    System.out.println("Enter date: ");
+                    date = r.readLine();
+                    query = String.format(Queries.query2, date, date);
+                    break;
+                case 3:
+                    System.out.println("Enter start date: ");
+                    date = r.readLine();
+                    query = String.format(Queries.query3, date, date);
+                    break;
+                case 4:
+                    System.out.println("Enter start date: ");
+                    date1 = r.readLine();
+                    System.out.println("Enter end date: ");
+                    date2 = r.readLine();
+                    query = String.format(Queries.query4, date1, date2);
+                    break;
+                case 5:
+                    // TODO: Insert params into the prepped query
+                    query = Queries.query5;
+                    break;
+                default:
+                    System.err.println("Invalid query number");
+                    break;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading input");
+
         }
 
         // Sending the query to the DBMS, and displaying results
