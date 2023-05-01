@@ -1,11 +1,38 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
+
+import queries.Queries;
 
 public class Prog4 {
     private String username;
     private String password;
 
-    public static void main(String[] args) {
+    public Prog4(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
+    public static void main(String[] args) {
+        Prog4 prog4 = new Prog4(args[0], args[1]);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        String input = "";
+        while (input != "q") {
+            System.out.println("Enter a query number (1-5) or q to quit: ");
+            try {
+                input = reader.readLine();
+            } catch (IOException e) {
+                System.err.println("Error reading input");
+                e.printStackTrace();
+            }
+            if (input == "q") {
+                break;
+            }
+            int queryNum = Integer.parseInt(input);
+            prog4.runQuery(queryNum);
+        }
     }
 
     public void runQuery(int queryNum) {
@@ -38,9 +65,31 @@ public class Prog4 {
             System.exit(-1);
         }
 
-        // TODO: Check with Arnav on how to grab the correct query (stored in obj)?
-        final String query = // our test query
-                "*** FETCH QUERY APPROPRIATELY ***";
+        String query = "";
+        switch (queryNum) {
+            case 1:
+                query = Queries.query1;
+                break;
+            case 2:
+                // TODO: Insert params into the prepped query
+                query = Queries.query2;
+                break;
+            case 3:
+                // TODO: Insert params into the prepped query
+                query = Queries.query3;
+                break;
+            case 4:
+                // TODO: Insert params into the prepped query
+                query = Queries.query4;
+                break;
+            case 5:
+                // TODO: Insert params into the prepped query
+                query = Queries.query5;
+                break;
+            default:
+                System.err.println("Invalid query number");
+                break;
+        }
 
         // Sending the query to the DBMS, and displaying results
         Statement stmt = null;
