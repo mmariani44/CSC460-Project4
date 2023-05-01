@@ -66,32 +66,33 @@ public class Prog4 {
         }
 
         String query = "";
+        String input = "";
+        String date = "";
+        String date1 = "";
+        String date2 = "";
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         switch (queryNum) {
             case 1:
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
                 System.out.println("Enter clientId: ");
-                input = reader.readLine();
+                input = r.readLine();
                 int clientId = Integer.parseInt(input);
                 query = String.format(Queries.query1, clientId, clientId);
                 break;
             case 2:
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println("Enter date: ")
-                date = reader.readLine();
+                System.out.println("Enter date: ");
+                date = r.readLine();
                 query = String.format(Queries.query2, date, date);
                 break;
             case 3:
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println("Enter start date: ")
-                date = reader.readLine();
+                System.out.println("Enter start date: ");
+                date = r.readLine();
                 query = String.format(Queries.query3, date, date);
                 break;
             case 4:
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
                 System.out.println("Enter start date: ");
-                date1 = reader.readLine();
+                date1 = r.readLine();
                 System.out.println("Enter end date: ");
-                date2 = reader.readLine();
+                date2 = r.readLine();
                 query = String.format(Queries.query4, date1, date2);
                 break;
             case 5:
