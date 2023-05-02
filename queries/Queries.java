@@ -5,33 +5,65 @@ public class Queries {
 
 			
 """
-SELECT SUM(rb.roomRate) + COALESCE(SUM(a.amenityCost),0) AS totalBill
-FROM HotelBooking b
-INNER JOIN HotelRoom r ON b.roomId = r.roomId AND b.hotelId = r.hotelId
-INNER JOIN HotelClient c ON b.clientId = c.clientId
-INNER JOIN (
-    SELECT roomId, hotelId, roomRate
-    FROM HotelRoom
-) rb ON b.roomId = rb.roomId AND b.hotelId = rb.hotelId
-LEFT JOIN (
-    SELECT amenityId, hotelId, amenityCost
-    FROM HotelAmenity
-    WHERE isPaid = 0
-) a ON b.hotelId = a.hotelId AND r.roomId = a.roomId
-WHERE b.clientId = %s
-GROUP BY b.clientId;
+WITH BookingCost AS (
+	SELECT
+		hb.clientId,
+		hr.roomRate * (hb.endDate - hb.startDate) AS stayCost
+	FROM
+		HotelBooking hb
+		JOIN HotelRoom hr ON hb.roomId = hr.roomId AND hb.hotelId = hr.hotelId
+	WHERE
+		hb.clientId = %s
+),
+AmenityCost AS (
+	SELECT
+		hc.clientId,
+		SUM(ha.price) AS totalAmenitiesCost
+	FROM
+		HotelClient hc
+		JOIN HotelBooking hb ON hc.clientId = hb.clientId
+		JOIN HotelAmenity ha ON hb.hotelId = ha.hotelId
+	WHERE
+		hc.clientId = %s AND
+		NOT EXISTS (
+			SELECT
+				1
+			FROM
+				HotelRating hr
+			WHERE
+				hr.amenityId = ha.amenityId
+		)
+	GROUP BY
+		hc.clientId
+)
+SELECT
+	bc.clientId,
+	bc.stayCost + COALESCE(ac.totalAmenitiesCost, 0) AS currentBill
+FROM
+	BookingCost bc
+	LEFT JOIN AmenityCost ac ON bc.clientId = ac.clientId;
+
 			
 """;
 	
 	public static final String query2 = // parameter(s): date 
 			
 """
-SELECT c.firstName, c.lastName, r.roomId, CASE WHEN c.membershipType IS NULL THEN 'Non-Member' ELSE c.membershipType END AS category
-FROM HotelClient c
-INNER JOIN HotelBooking b ON c.clientId = b.clientId
-INNER JOIN HotelRoom r ON b.roomId = r.roomId AND b.hotelId = r.hotelId
-WHERE TO_DATE('%s', 'YYYY-MM-DD') BETWEEN b.startDate AND b.endDate
-ORDER BY r.roomId, category;
+SELECT
+    hc.membershipType,
+    hc.clientId,
+    hc.firstName,
+    hc.lastName,
+    hr.roomId
+FROM
+    HotelClient hc
+    JOIN HotelBooking hb ON hc.clientId = hb.clientId
+    JOIN HotelRoom hr ON hb.roomId = hr.roomId AND hb.hotelId = hr.hotelId
+WHERE
+    TO_DATE('%s', 'yyyy-mm-dd') BETWEEN hb.startDate AND hb.endDate
+ORDER BY
+    hc.membershipType,
+    hr.roomId;
 		
 """;
 
