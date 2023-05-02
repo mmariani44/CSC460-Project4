@@ -51,6 +51,22 @@ public class Room {
 	public float amenitiesTotal;
 	public float roomRate;
 
+	/*---------------------------------------------------------------------
+	|  Constructor Room(String hotelId, float roomRate)
+	|
+	|  Purpose:  Creates Room object to represent a single Room for the chain.
+	|
+	|  Pre-condition:  hotelId and roomRate are passed in.
+	|
+	|  Post-condition: Columns and values are stored in this object. Easy getters.
+	|
+	|  Parameters:
+	|       		String hotelId -- unique id of hotel for this room
+	|				float roomRate -- cost of room per night
+	|
+	|
+	|  Returns: Room object with given field values.
+	*-------------------------------------------------------------------*/
 	public Room(String hotelId, float roomRate) {
 		this.roomId = UUID.randomUUID().toString();
 		this.hotelId = hotelId;
@@ -58,11 +74,39 @@ public class Room {
 		this.roomRate = roomRate;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method toString()
+	|
+	|  Purpose:  Turns Room object field vals into a comma-separated string
+	|
+	|  Pre-condition:  fields are set.
+	|
+	|  Post-condition: converts Room vals to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Room's field vals.
+	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
 		return roomId + ", " + hotelId + ", " + amenitiesTotal + ", " + roomRate;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method GetFields()
+	|
+	|  Purpose: Turns Room column names into a comma-separated string
+	|
+	|  Pre-condition:  None.
+	|
+	|  Post-condition: converts Room column names to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Room's column names.
+	*-------------------------------------------------------------------*/
 	public String GetFields() {
 
 		StringBuilder sb = new StringBuilder();

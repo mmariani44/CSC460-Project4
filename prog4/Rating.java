@@ -50,6 +50,23 @@ public class Rating {
 	public String comments;
 	public String amenityId;
 
+	/*---------------------------------------------------------------------
+	|  Constructor Rating(int rating, String comments, String amenityId)
+	|
+	|  Purpose:  Creates Rating object to represent a single Rating for the chain.
+	|
+	|  Pre-condition:  rating, comments, and amenityId are passed in.
+	|
+	|  Post-condition: Columns and values are stored in this object. Easy getters.
+	|
+	|  Parameters:
+	|       		int rating -- rating for the amenity
+	|       		String comments -- comments for the amenity rating
+	|       		String amenityId -- unique id of amenity being rated
+	|
+	|
+	|  Returns: Rating object with given field values.
+	*-------------------------------------------------------------------*/
 	public Rating(int rating, String comments, String amenityId) {
 		this.ratingId = UUID.randomUUID().toString();
 		this.rating = rating;
@@ -57,11 +74,39 @@ public class Rating {
 		this.amenityId = amenityId;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method toString()
+	|
+	|  Purpose:  Turns Rating object field vals into a comma-separated string
+	|
+	|  Pre-condition:  fields are set.
+	|
+	|  Post-condition: converts Rating vals to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Rating's field vals.
+	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
 		return ratingId + "," + rating + "," + comments + "," + amenityId;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method GetFields()
+	|
+	|  Purpose: Turns Rating column names into a comma-separated string
+	|
+	|  Pre-condition:  None.
+	|
+	|  Post-condition: converts Rating column names to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Rating's column names.
+	*-------------------------------------------------------------------*/
 	public String GetFields() {
 
 		StringBuilder sb = new StringBuilder();

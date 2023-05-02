@@ -56,6 +56,25 @@ public class Employee {
 	public String duty;
 	public float wage;
 
+	/*---------------------------------------------------------------------
+	|  Constructor Employee(String hotelId, String firstName, String lastName, String duty, float wage)
+	|
+	|  Purpose:  Creates Employee object to represent a single Employee for hotels.
+	|
+	|  Pre-condition:  hotelId, firstName, lastName, duty, wage are passed in.
+	|
+	|  Post-condition: Columns and values are stored in this object. Easy getters.
+	|
+	|  Parameters:
+	|       		String hotelId -- unique id of hotel of Employee
+	|				String firstName -- employee first name
+	|				String lastName -- employee last name
+	|				String duty -- job title
+	|				float wage -- hourly wage
+	|
+	|
+	|  Returns: Employee object with given field values.
+	*-------------------------------------------------------------------*/
 	public Employee(String hotelId, String firstName, String lastName, String duty, float wage) {
 		this.employeeId = UUID.randomUUID().toString();
 		this.hotelId = hotelId;
@@ -65,11 +84,39 @@ public class Employee {
 		this.wage = wage;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method toString()
+	|
+	|  Purpose:  Turns Employee object field vals into a comma-separated string
+	|
+	|  Pre-condition:  fields are set.
+	|
+	|  Post-condition: converts Employee vals to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Employee's field vals.
+	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
 		return employeeId + ", " + hotelId + ", " + firstName + ", " + lastName + ", " + duty + ", " + wage;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method GetFields()
+	|
+	|  Purpose: Turns Employee column names into a comma-separated string
+	|
+	|  Pre-condition:  None.
+	|
+	|  Post-condition: converts Employee column names to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Employee's column names.
+	*-------------------------------------------------------------------*/
 	public String GetFields() {
 
 		StringBuilder sb = new StringBuilder();

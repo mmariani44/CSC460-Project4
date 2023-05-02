@@ -46,16 +46,59 @@ public class Hotel {
 	public String hotelId;
 	public String name;
 
+	/*---------------------------------------------------------------------
+	|  Constructor Hotel(String name)
+	|
+	|  Purpose:  Creates Hotel object to represent a single Hotel for the chain.
+	|
+	|  Pre-condition:  hotel name is passed in.
+	|
+	|  Post-condition: Columns and values are stored in this object. Easy getters.
+	|
+	|  Parameters:
+	|       		String name -- name of hotel
+	|
+	|
+	|  Returns: Hotel object with given field values.
+	*-------------------------------------------------------------------*/
 	public Hotel(String name) {
 		this.hotelId = UUID.randomUUID().toString();
 		this.name = name;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method toString()
+	|
+	|  Purpose:  Turns Hotel object field vals into a comma-separated string
+	|
+	|  Pre-condition:  fields are set.
+	|
+	|  Post-condition: converts Hotel vals to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Hotel's field vals.
+	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
 		return hotelId + ", " + name;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method GetFields()
+	|
+	|  Purpose: Turns Hotel column names into a comma-separated string
+	|
+	|  Pre-condition:  None.
+	|
+	|  Post-condition: converts Hotel column names to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Hotel's column names.
+	*-------------------------------------------------------------------*/
 	public String GetFields() {
 
 		StringBuilder sb = new StringBuilder();

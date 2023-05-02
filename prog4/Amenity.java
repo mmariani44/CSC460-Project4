@@ -52,17 +52,61 @@ public class Amenity {
 	public String amenityName;
 	public int ratingId;
 
+	/*---------------------------------------------------------------------
+	|  Constructor Amenity(String hotelId, String amenityName)
+	|
+	|  Purpose:  Creates Amenity object to represent a single Amenity for hotels.
+	|
+	|  Pre-condition:  hotelId and amenityName are passed in.
+	|
+	|  Post-condition: Columns and values are stored in this object. Easy getters.
+	|
+	|  Parameters:
+	|       String hotelId -- unique id of hotel offering this amenity
+	|		String amenityName  -- name of the amenity i.e. "pool"
+	|
+	|
+	|  Returns: Amenity object with given field values..
+	*-------------------------------------------------------------------*/
 	public Amenity(String hotelId, String amenityName) {
 		this.amenityId = UUID.randomUUID().toString();
 		this.hotelId = hotelId;
 		this.amenityName = amenityName;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method toString()
+	|
+	|  Purpose:  Turns Amenity object field vals into a comma-separated string
+	|
+	|  Pre-condition:  fields are set.
+	|
+	|  Post-condition: converts Amenity vals to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Amenity's field vals.
+	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
 		return amenityId + ", " + hotelId + ", " + amenityName + ", " + ratingId;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method GetFields()
+	|
+	|  Purpose: Turns Amenity column names into a comma-separated string
+	|
+	|  Pre-condition:  None.
+	|
+	|  Post-condition: converts Amenity column names to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Amenity's column names.
+	*-------------------------------------------------------------------*/
 	public String GetFields() {
 
 		StringBuilder sb = new StringBuilder();

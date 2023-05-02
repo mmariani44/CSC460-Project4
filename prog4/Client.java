@@ -61,6 +61,22 @@ public class Client {
 	public boolean isStudent;
 	public String membershipType; // none, bronze, silver, gold
 
+	/*---------------------------------------------------------------------
+	|  Constructor Client(String firstName, String lastName)
+	|
+	|  Purpose:  Creates Client object to represent a single Client for hotels.
+	|
+	|  Pre-condition:  firstName and lastName are passed in.
+	|
+	|  Post-condition: Columns and values are stored in this object. Easy getters.
+	|
+	|  Parameters:
+	|       		String firstName -- client first name
+	|				String lastName -- client last name
+	|
+	|
+	|  Returns: Client object with given field values.
+	*-------------------------------------------------------------------*/
 	public Client(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -75,6 +91,20 @@ public class Client {
 		this.points = 0;
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method GetFields()
+	|
+	|  Purpose: Turns Client column names into a comma-separated string
+	|
+	|  Pre-condition:  None.
+	|
+	|  Post-condition: converts Client column names to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Client's column names.
+	*-------------------------------------------------------------------*/
 	public String GetFields() {
 
 		StringBuilder sb = new StringBuilder();
@@ -86,6 +116,20 @@ public class Client {
 		return sb.toString();
 	}
 
+	/*---------------------------------------------------------------------
+	|  Method toString()
+	|
+	|  Purpose:  Turns Client object field vals into a comma-separated string
+	|
+	|  Pre-condition:  fields are set.
+	|
+	|  Post-condition: converts Client vals to string and returns it.
+	|
+	|  Parameters: None.
+	|
+	|
+	|  Returns: String. Comma-separated string of Client's field vals.
+	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
 		return clientId + "," + firstName + "," + lastName + "," + studentDiscount + "," + membershipDiscount + "," +
