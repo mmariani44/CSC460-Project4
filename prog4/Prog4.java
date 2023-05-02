@@ -751,8 +751,6 @@ public class Prog4 {
 
         }
         
-        // print current query
-        System.out.println("Executing SQL Statement: " + query);
         
         // Sending the query to the DBMS, and displaying results
         Statement stmt = null;
