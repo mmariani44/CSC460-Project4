@@ -8,10 +8,6 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.Scanner;
 
-// import javax.naming.spi.DirStateFactory.Result;
-
-import queries.Queries;
-
 public class Prog4 {
     private String username;
     private String password;
@@ -27,7 +23,6 @@ public class Prog4 {
 
         String input = "";
         while (input != "q") {
-            System.out.println("Enter a query number (1-5) or q to quit: ");
             System.out.println("Select which operation you would like to perform by entering the labeled number:\n"
                     + "(1) Print customer's total bill.\n"
                     + "(2) Print all customers staying at this location.\n"

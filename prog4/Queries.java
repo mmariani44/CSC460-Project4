@@ -1,4 +1,4 @@
-package queries;
+package prog4;
 
 public class Queries {
 	public static final String query1 = // parameter(s): clientId
