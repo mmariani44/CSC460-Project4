@@ -1,5 +1,9 @@
-## Run Commands ....
+Compilation and Execution Instructions:
+# put instructions here
 
-ALL QUERIES AND TESTS: "clear && javac Prog4.java && java Prog4 {oracle_username} {oracle_password} --all > test.out"
-SPECIFIC QUERY: "clear && javac Prog4.java && java Prog4 {oracle_username} {oracle_password} --query query{i} > test.out"
-SPECIFIC TEST: "clear && javac Prog4.java && java Prog4 {oracle_username} {oracle_password} --test query{i}/test{j}.sql > test.out"
+
+Workload Distribution:
+
+Mauricio: conceptual design, normalization analysis, testing, # put more stuff here
+Arnav: Query writing, query testing, normalization analysis, conceptual design, front-end user input, ....
+Mason: conceptual design, # put more stuff here
