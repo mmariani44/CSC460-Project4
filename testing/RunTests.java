@@ -89,6 +89,15 @@ public class RunTests {
             case "query5":
                 Prog4.testEntry(prog4, 5, testName);
                 break;
+            case "query6":
+                Prog4.testEntry(prog4, 6, testName);
+                break;
+            case "query7":
+                Prog4.testEntry(prog4, 7, testName);
+                break;
+            case "query8":
+                Prog4.testEntry(prog4, 8, testName);
+                break;
             default:
                 System.out.println("Invalid query number");
                 break;
