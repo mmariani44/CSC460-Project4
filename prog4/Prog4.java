@@ -188,12 +188,12 @@ public class Prog4 {
                 sqlCmd.append("Amenity ");
 
                 System.out.println("Enter Amenity information in a comma seperated list as such:\n"
-                        + "Hotel ID, Amenity Name");
+                        + "Hotel ID, Amenity Name, Price");
                 String amenityInfo = scanner.nextLine();
                 String[] amenityArray = amenityInfo.split(",");
                 try {
 
-                    Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip());
+                    Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip(), Float.parseFloat(amenityArray[2].strip()));
                     cols = amenity.GetFields();
                     values = amenity.toString();
 
