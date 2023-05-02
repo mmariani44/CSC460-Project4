@@ -259,7 +259,7 @@ public class Prog4 {
             System.out.println("Specify the client you are deleting (Client ID): ");
             String clientId = scanner.nextLine();
 
-            sqlCmd.append("clientId = " + clientId);
+            sqlCmd.append("clientId = '" + clientId + "'");
         }
         else if (input.toLowerCase().equals("booking")) {
             sqlCmd.append("Booking WHERE ");
@@ -271,9 +271,9 @@ public class Prog4 {
             String[] bookingArray = bookingInfo.split(",");
 
             // build sql command
-            sqlCmd.append("clientId = " + bookingArray[0].strip() + " AND hotelId = " + bookingArray[1].strip()
-                    + " AND "
-                    + "roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[3].strip());
+            sqlCmd.append("clientId = '" + bookingArray[0].strip() + "' AND hotelId = '" + bookingArray[1].strip()
+                    + "' AND "
+                    + "roomId = '" + bookingArray[2].strip() + "' AND startDate = '" + bookingArray[3].strip() + "'");
         }
         else if (input.toLowerCase().equals("hotel")) {
             sqlCmd.append("Hotel WHERE ");
@@ -281,7 +281,7 @@ public class Prog4 {
             System.out.println("Specify the hotel you are deleting (Hotel ID): ");
             String hotelId = scanner.nextLine();
 
-            sqlCmd.append("hotelId = " + hotelId);
+            sqlCmd.append("hotelId = '" + hotelId + "'");
         }
         else if (input.toLowerCase().equals("room")) {
             sqlCmd.append("Room WHERE ");
@@ -290,7 +290,7 @@ public class Prog4 {
             String roomInfo = scanner.nextLine();
             String[] roomArray = roomInfo.split(",");
 
-            sqlCmd.append("roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
+            sqlCmd.append("roomId = '" + roomArray[0].strip() + "' AND hotelId = '" + roomArray[1].strip() + "'");
         }
         else if (input.toLowerCase().equals("amenity")) {
             sqlCmd.append("Amenity WHERE ");
@@ -299,7 +299,7 @@ public class Prog4 {
             String amenityInfo = scanner.nextLine();
             String[] amenityArray = amenityInfo.split(",");
 
-            sqlCmd.append("amenityId = " + amenityArray[0].strip() + " AND hotelId = " + amenityArray[1].strip());
+            sqlCmd.append("amenityId = '" + amenityArray[0].strip() + "' AND hotelId = '" + amenityArray[1].strip() + "'");
         }
         else if (input.toLowerCase().equals("rating")) {
             sqlCmd.append("Rating WHERE ");
@@ -307,7 +307,7 @@ public class Prog4 {
             System.out.println("Specify the rating you are deleting (Rating ID): ");
             String ratingId = scanner.nextLine();
 
-            sqlCmd.append("ratingId = " + ratingId);
+            sqlCmd.append("ratingId = '" + ratingId + "'");
         }
         else if (input.toLowerCase().equals("employee")) {
             sqlCmd.append("Employee WHERE ");
@@ -317,7 +317,7 @@ public class Prog4 {
             String[] employeeArray = employeeInfo.split(",");
 
             sqlCmd.append(
-                    "employeeId = " + employeeArray[0].strip() + " AND hotelId = " + employeeArray[1].strip());
+                    "employeeId = '" + employeeArray[0].strip() + "' AND hotelId = '" + employeeArray[1].strip() + "'");
         }
         else if (input.toLowerCase().equals("shift")) {
             sqlCmd.append("Shift WHERE ");
@@ -327,7 +327,7 @@ public class Prog4 {
             String shiftInfo = scanner.nextLine();
             String[] shiftArray = shiftInfo.split(",");
 
-            sqlCmd.append("employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip());
+            sqlCmd.append("employeeId = '" + shiftArray[0].strip() + "' AND hotelId = '" + shiftArray[1].strip() + "'");
         }
 
         scanner.close();
@@ -335,6 +335,18 @@ public class Prog4 {
         return sqlCmd.toString();
     }
 
+    private boolean checkCols(String col) {
+    	if (col.strip().substring(col.length()-2).equals("Id") ||
+    			col.strip().substring(col.length()-4).equals("Name") ||
+            	col.strip().substring(col.length()-4).equals("Type") ||
+            	col.strip().substring(col.length()-8).equals("comments") ||
+            	col.strip().substring(col.length()-4).equals("name") ||
+            	col.strip().substring(col.length()-4).equals("duty") ) {
+    		return true;
+        }
+    	return false;
+    }
+    
     // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ =
     // _given_
     // this command is then sent off to the execute method.
@@ -370,7 +382,12 @@ public class Prog4 {
             // loop of columnN = valueN, ...
             for (String col : clientColsArray) {
 
-                sb.append(col.strip() + " = " + clientValsArray[i].strip() + ", ");
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + clientValsArray[i].strip() + "', ");
+            	}
+            	else {
+            		sb.append(col.strip() + " = " + clientValsArray[i].strip() + ", ");
+            	}
 
                 i++;
             }
@@ -397,8 +414,13 @@ public class Prog4 {
 
             // loop of columnN = valueN, ...
             for (String col : bookingColsArray) {
-
-                sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
+            	
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + bookingValsArray[i].strip() + "', ");
+            	}
+            	else {
+                    sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
+            	}
 
                 i++;
             }
@@ -426,8 +448,14 @@ public class Prog4 {
             // loop of columnN = valueN, ...
             for (String col : hotelColsArray) {
 
-                sb.append(col.strip() + " = " + hotelValsArray[i].strip() + ", ");
-
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + hotelValsArray[i].strip() + "', ");
+            	}
+            	
+            	else {
+            		sb.append(col.strip() + " = " + hotelValsArray[i].strip() + ", ");
+            	}
+            	
                 i++;
             }
 
@@ -453,7 +481,13 @@ public class Prog4 {
             // loop of columnN = valueN, ...
             for (String col : roomColsArray) {
 
-                sb.append(col.strip() + " = " + roomValsArray[i].strip() + ", ");
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + roomValsArray[i].strip() + "', ");
+            	}
+            	
+            	else {
+            		sb.append(col.strip() + " = " + roomValsArray[i].strip() + ", ");
+            	}
 
                 i++;
             }
@@ -480,7 +514,13 @@ public class Prog4 {
             // loop of columnN = valueN, ...
             for (String col : amenityColsArray) {
 
-                sb.append(col.strip() + " = " + amenityValsArray[i].strip() + ", ");
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + amenityValsArray[i].strip() + "', ");
+            	}
+            	
+            	else {
+            		sb.append(col.strip() + " = " + amenityValsArray[i].strip() + ", ");
+            	}
 
                 i++;
             }
@@ -506,8 +546,14 @@ public class Prog4 {
 
             // loop of columnN = valueN, ...
             for (String col : ratingColsArray) {
+            	
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + ratingValsArray[i].strip() + "', ");
+            	}
 
-                sb.append(col.strip() + " = " + ratingValsArray[i].strip() + ", ");
+            	else {
+            		sb.append(col.strip() + " = " + ratingValsArray[i].strip() + ", ");
+            	}
 
                 i++;
             }
@@ -534,7 +580,11 @@ public class Prog4 {
             // loop of columnN = valueN, ...
             for (String col : employeeColsArray) {
 
-                sb.append(col.strip() + " = " + employeeValsArray[i].strip() + ", ");
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + employeeValsArray[i].strip() + "', ");
+            	}
+            	
+            	sb.append(col.strip() + " = " + employeeValsArray[i].strip() + ", ");
 
                 i++;
             }
@@ -562,8 +612,14 @@ public class Prog4 {
 
             // loop of columnN = valueN, ...
             for (String col : shiftColsArray) {
+            	
+            	if (checkCols(col.strip())) {
+            		sb.append(col.strip() + " = '" + shiftValsArray[i].strip() + "', ");
+            	}
 
-                sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
+            	else {
+            		sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
+            	}
 
                 i++;
             }
