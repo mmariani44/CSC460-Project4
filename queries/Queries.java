@@ -1,3 +1,32 @@
+/**
+ * Assignment:  Program #4
+ * Author:  Arnav Popat
+ * Course: CSC 460
+ * Instructor: L. McCann
+ * Due Date: May 2nd 2023
+ * Description: Stores the strings needed for all SQL queries used by Prog4.java. Stores with 
+ * '%s' for parameters.
+ *
+ * Language: Java 16
+ * External Packages: None
+ *
+ * Deficiencies: 
+ * None
+ *
+ * String Constants: 
+ * query1
+ * query2
+ * query3
+ * query4
+ * query5
+ *
+ * Constructors:
+ * none
+ *
+ * Public Methods:
+ * none
+ */
+
 package queries;
 
 public class Queries {
