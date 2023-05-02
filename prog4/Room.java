@@ -21,7 +21,7 @@ public class Room {
     	return roomId + ", " + hotelId + ", " + amenitiesTotal + ", " + roomRate;
     }
     
-	public String GetFields() {
+	public static String GetFields() {
 		return "roomId, hotelId, amenitiesTotal, roomRate";
 	}
 

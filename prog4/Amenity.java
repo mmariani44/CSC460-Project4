@@ -23,7 +23,7 @@ public class Amenity {
     }
 
     
-	public String GetFields() {
+	public static String GetFields() {
 		return "amenityId, hotelId, amenityName, ratingId";
 	}
 

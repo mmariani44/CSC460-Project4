@@ -22,7 +22,7 @@ public class Rating {
 	}
 
 	
-	public String GetFields() {
+	public static String GetFields() {
 		return "ratingId, rating, comments, amenityId";
 	}
 

@@ -107,7 +107,7 @@ public class Prog4 {
 
         //
         StringBuilder sqlCmd = new StringBuilder();
-        sqlCmd.append("INSERT INTO Hotel.");
+        sqlCmd.append("INSERT INTO Hotel");
         String cols = "";
         String values = "";
 
@@ -123,7 +123,7 @@ public class Prog4 {
                 String lastName = scanner.nextLine().strip().toLowerCase().strip();
                 try {
                     Client client = new Client(firstName, lastName);
-                    cols = client.GetFields();
+                    cols = Client.GetFields();
                     values = client.toString();
                 } catch (Exception e) {
                     System.out.println("Error creating entry.");
@@ -142,7 +142,7 @@ public class Prog4 {
                     Booking booking = new Booking(bookingArray[0].strip(), bookingArray[1].strip(),
                             bookingArray[2].strip(),
                             Date.valueOf(bookingArray[3].strip()), Date.valueOf(bookingArray[4].strip()));
-                    cols = booking.GetFields();
+                    cols = Booking.GetFields();
                     values = booking.toString();
 
                 } catch (Exception e) {
@@ -158,7 +158,7 @@ public class Prog4 {
                 try {
 
                     Hotel hotel = new Hotel(hotelName);
-                    cols = hotel.GetFields();
+                    cols = Hotel.GetFields();
                     values = hotel.toString();
 
                 } catch (Exception e) {
@@ -176,7 +176,7 @@ public class Prog4 {
                 try {
 
                     Room room = new Room(roomArray[0].strip(), Float.parseFloat(roomArray[1].strip()));
-                    cols = room.GetFields();
+                    cols = Room.GetFields();
                     values = room.toString();
 
                 } catch (Exception e) {
@@ -194,7 +194,7 @@ public class Prog4 {
                 try {
 
                     Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip(), Float.parseFloat(amenityArray[2].strip()));
-                    cols = amenity.GetFields();
+                    cols = Amenity.GetFields();
                     values = amenity.toString();
 
                 } catch (Exception e) {
@@ -233,7 +233,7 @@ public class Prog4 {
                     Employee employee = new Employee(employeeArray[0].strip(), employeeArray[1].strip(),
                             employeeArray[2].strip(),
                             employeeArray[3].strip(), Float.parseFloat(employeeArray[4].strip()));
-                    cols = employee.GetFields();
+                    cols = Employee.GetFields();
                     values = employee.toString();
 
                 } catch (Exception e) {
@@ -279,9 +279,7 @@ public class Prog4 {
 
         //
         StringBuilder sqlCmd = new StringBuilder();
-        sqlCmd.append("DELETE FROM Hotel.");
-        String cols = "";
-        String values = "";
+        sqlCmd.append("DELETE FROM Hotel");
 
         switch (input) {
             case "client":
@@ -368,7 +366,7 @@ public class Prog4 {
     }
 
     
-    // UPDATE Hotel._table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ = _given_
+    // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ = _given_
     // this command is then sent off to the execute method.
     private static void RecordUpdate() {
 
@@ -378,7 +376,7 @@ public class Prog4 {
         String input = scanner.nextLine().strip().toLowerCase();
         
         StringBuilder sb = new StringBuilder();
-        sb.append("UPDATE Hotel.");
+        sb.append("UPDATE Hotel");
 
         int i = 0;
         switch (input) {

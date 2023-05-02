@@ -26,7 +26,7 @@ public class Employee {
 	}
 
 	
-	public String GetFields() {
+	public static String GetFields() {
 		return "employeeId, hotelId, firstName, lastName, duty, wage";
 	}
 

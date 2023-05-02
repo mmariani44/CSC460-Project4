@@ -19,7 +19,7 @@ public class Shift {
     	return employeeId + ", " + dateStart + ", " + dateEnd;
     }
 	
-	public String GetFields() {
+	public static String GetFields() {
 		return "employeeId, dateStart, dateEnd";
 	}
 	
