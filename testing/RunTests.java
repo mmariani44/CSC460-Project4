@@ -1,19 +1,35 @@
 package testing;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
+import queries.Queries;
+import prog4.Prog4;
 
 public class RunTests {
+
+    private String username;
+    private String password;
+
+    public RunTests(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public static void main(String[] args) {
         String username = args[0];
         String password = args[1];
+
+        RunTests runTests = new RunTests(username, password);
 
         boolean allFlag = false;
         boolean queryFlag = false;
         boolean fileFlag = false;
         String testStr = "";
 
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 2; i < args.length; i++) {
             String arg = args[i].toLowerCase();
             if (arg.equals("--all")) {
                 allFlag = true;
@@ -32,15 +48,15 @@ public class RunTests {
         }
 
         if (allFlag) {
-            runAllTests();
+            runTests.runAllTests();
         } else if (queryFlag) {
-            runQuery(testStr);
+            runTests.runQuery(testStr);
         } else if (fileFlag) {
-            runTest(testStr);
+            runTests.runTest(testStr);
         }
     }
 
-    public static void runAllTests() {
+    public void runAllTests() {
         for (int i = 0; i < 5; i++) {
             String query = "./testing/queries/query" + (i + 1);
             System.out.println("runAllTests" + query);
@@ -49,91 +65,65 @@ public class RunTests {
 
     }
 
-    public static void runQuery(String queryName) {
+    public void runQuery(String queryName) {
         File curFolder = new File(queryName);
         int numQueries = curFolder.listFiles().length;
         for (int i = 0; i < numQueries; i++) {
-            runTest(queryName + "/test" + (int) (i + 1) + ".sql");
+            this.runTest(queryName + "/test" + (int) (i + 1) + ".sql");
         }
     }
 
-    public static void runTest(String testName) {
+    public void runTest(String testName) {
         System.out.println("Running Test: " + testName);
-    }
-
-    public static void querySpecificOutputFunction(String username, String password) {
-
-        final String oracleURL = // Magic lectura -> aloe access spell
-                "jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
-
-        // load the (Oracle) JDBC driver by initializing its base
-        // class, 'oracle.jdbc.OracleDriver'.
+        String[] path = testName.split("/");
+        String queryFolder = path[3];
+        String testNum = path[4];
+        Prog4 prog4 = new Prog4(this.username, this.password);
+        String query = "";
+        String input = "";
+        String date = "";
+        String date1 = "";
+        String date2 = "";
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("*** ClassNotFoundException:  "
-                    + "Error loading Oracle JDBC driver.  \n"
-                    + "\tPerhaps the driver is not on the Classpath?");
-            System.exit(-1);
-        }
-
-        // make and return a database connection to the user's
-        // Oracle database
-        Connection dbconn = null;
-        try {
-            dbconn = DriverManager.getConnection(oracleURL, username, password);
-        } catch (SQLException e) {
-            System.err.println("*** SQLException:  "
-                    + "Could not open JDBC connection.");
-            System.err.println("\tMessage:   " + e.getMessage());
-            System.err.println("\tSQLState:  " + e.getSQLState());
-            System.err.println("\tErrorCode: " + e.getErrorCode());
-            System.exit(-1);
-        }
-
-        final String query = // our test query
-                "*** FETCH QUERY APPROPRIATELY ***"; // TODO: replace template
-
-        // Sending the query to the DBMS, and displaying results
-        Statement stmt = null;
-        ResultSet answer = null;
-        try {
-            stmt = dbconn.createStatement();
-            answer = stmt.executeQuery(query);
-            if (answer != null) {
-
-                System.out.println("\nThe results of the query [" + query
-                        + "] are:\n");
-
-                // Getting and printing column names
-                ResultSetMetaData answermetadata = answer.getMetaData();
-                for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
-                    System.out.print(answermetadata.getColumnName(i) + "\t");
-                }
-                System.out.println();
-
-                // iterating through rows in answer
-                while (answer.next()) {
-                    System.out.println(answer.getString("sno") + "\t"
-                            + answer.getInt("status")); // TODO: replace template
-                }
+            switch (queryFolder) {
+                case "query1":
+                    System.out.println("Enter clientId: ");
+                    input = r.readLine();
+                    int clientId = Integer.parseInt(input);
+                    query = String.format(Queries.query1, clientId, clientId);
+                    break;
+                case "query2":
+                    System.out.println("Enter date: ");
+                    date = r.readLine();
+                    query = String.format(Queries.query2, date, date);
+                    break;
+                case "query3":
+                    System.out.println("Enter start date: ");
+                    date = r.readLine();
+                    query = String.format(Queries.query3, date, date);
+                    break;
+                case "query4":
+                    System.out.println("Enter start date: ");
+                    date1 = r.readLine();
+                    System.out.println("Enter end date: ");
+                    date2 = r.readLine();
+                    query = String.format(Queries.query4, date1, date2);
+                    break;
+                case "query5":
+                    // TODO: Insert params into the prepped query
+                    query = Queries.query5;
+                    break;
+                default:
+                    System.out.println("Invalid query number");
+                    break;
             }
-            System.out.println();
-
-            // Shutting down DBMS.
-            stmt.close();
-            dbconn.close();
-
-        } catch (SQLException e) {
-
-            System.err.println("*** SQLException:  "
-                    + "Could not fetch query results.");
-            System.err.println("\tMessage:   " + e.getMessage());
-            System.err.println("\tSQLState:  " + e.getSQLState());
-            System.err.println("\tErrorCode: " + e.getErrorCode());
-            System.exit(-1);
-
+        } catch (IOException e) {
+            System.err.println("Error reading input");
         }
+        // TODO: Load parameters (if not query1)
+        // TODO: call the appropriate query{num} function based on path
 
     }
+
 }
