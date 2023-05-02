@@ -1,10 +1,14 @@
 package prog4;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.Scanner;
+
+// import javax.naming.spi.DirStateFactory.Result;
 
 import queries.Queries;
 
@@ -24,6 +28,16 @@ public class Prog4 {
         String input = "";
         while (input != "q") {
             System.out.println("Enter a query number (1-5) or q to quit: ");
+            System.out.println("Select which operation you would like to perform by entering the labeled number:\n"
+                    + "(1) Print customer's total bill.\n"
+                    + "(2) Print all customers staying at this location.\n"
+                    + "(3) Print the schedule of staff for a given week.\n"
+                    + "(4) Print the average ratings of amenities within a two day range.\n"
+                    + "(5) TBD\n"
+                    + "(6) Insert new record.\n"
+                    + "(7) Delete existing record.\n"
+                    + "(8) Update existing record.\n"
+                    + "Or enter q to quit.");
             try {
                 input = reader.readLine();
             } catch (IOException e) {
@@ -35,11 +49,15 @@ public class Prog4 {
             }
             int queryNum = Integer.parseInt(input);
             prog4.runQuery(queryNum);
+            prog4.runQuery(queryNum, null);
         }
     }
 
     // ---------------------------------- MASON CODE -------------------------------------------- //
 
+    public static void testEntry(Prog4 prog, int queryNum, String testFile) {
+        prog.runQuery(queryNum, testFile);
+    }
 
     private static boolean PromptUser() {
 
@@ -83,22 +101,93 @@ public class Prog4 {
         // setting the index to use for the command in the array
         cmdNumber -= 1;
 
+    // ---------------------------------- MASON CODE
+    // -------------------------------------------- //
+
+    // interface for making the code less ugly. doesnt really matter, but better
+    // than having 8 if/elses
+    // interface CmdAction {
+    // void cmd();
+    // }
+
+    /*
+     * public static void main(String[] args) {
+     * 
+     * while (true) {
+     * boolean promptAgain = PromptUser();
+     * if (!promptAgain) {
+     * break;
+     * }
+     * }
+     * 
+     * }
+     */
+
+    // private static boolean PromptUser() {
+
+    // // ask user what they want to do
+    // System.out.println(
+    // "Select which operation you would like to perform by entering the labeled
+    // number:\n"
+
+    // + "(1) Print customer's total bill.\n"
+    // + "(2) Print all customers staying at this location.\n"
+    // + "(3) Print the schedule of staff for a given week.\n"
+    // + "(4) Print the average ratings of amenities within a two day range.\n"
+    // + "(5) TBD\n"
+    // + "(6) Insert new record.\n"
+    // + "(7) Delete existing record.\n"
+    // + "(8) Update existing record.\n"
+    // + "Or enter q to quit.");
+
+    // // collect user input and verify
+    // Scanner scanner = new Scanner(System.in);
+
+    // // check if quit command
+    // String input = scanner.nextLine().strip();
+    // scanner.close();
+    // if (input.equals("Q") || input.equals("q")) {
+    // return false;
+    // }
+
+    // // check if input is valid number and within bounds. if invalid, return and
+    // do
+    // // loop again
+    // int cmdNumber = 0;
+    // try {
+    // cmdNumber = Integer.parseInt(input);
+    // } catch (Exception e) {
+    // System.out.println("Enter a valid number.");
+    // return true;
+    // }
+    // if (cmdNumber < 1 || cmdNumber > 8) {
+    // System.out.println("Enter a number between 1 and 8.");
+    // return true;
+    // }
+
         // do command based on user input TODO this interface has been removed
         //cmdActions[cmdNumber].cmd();
+    // // setting the index to use for the command in the array
+    // cmdNumber -= 1;
 
         // do the loop again
         return true;
+    // // do command based on user input
+    // cmdActions[cmdNumber].cmd();
 
     }
 
     private static void ExecuteSQLCommand(String cmd) {
+    // // do the loop again
+    // return true;
 
-    }
+    // }
 
     // ----------------------------------- THIS SECTION IS FOR TABLE UPDATES ----------------------------------- //
 
 
     private static void RecordInsertion() {
+    private String RecordInsertion() {
 
         // prompt user
         System.out.println("Specify the table you are inserting into:");
@@ -268,9 +357,11 @@ public class Prog4 {
 
         ExecuteSQLCommand(sqlCmd.toString());
 
+        return sqlCmd.toString();
     }
 
     private static void RecordDeletion() {
+    private String RecordDeletion() {
 
         // prompt user
         System.out.println("Specify the table you are deleting from:");
@@ -363,12 +454,14 @@ public class Prog4 {
 
         ExecuteSQLCommand(sqlCmd.toString());
 
+        return sqlCmd.toString();
     }
 
     
     // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ = _given_
     // this command is then sent off to the execute method.
     private static void RecordUpdate() {
+    private String RecordUpdate() {
 
         System.out.println("Specify the table you are updating: ");
 
@@ -377,6 +470,7 @@ public class Prog4 {
         
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE Hotel");
+        StringBuilder sqlCmd = new StringBuilder();
 
         int i = 0;
         switch (input) {
@@ -607,14 +701,18 @@ public class Prog4 {
 
         scanner.close();
 
+        return sqlCmd.toString();
     }
 
    
     
     
+    // ----------------------------------- EVERYTHING BELOW IS FOR THE QUERIES
+    // ----------------------------------- //
 
     // TODO: Query parameters need sanitization?
     public void runQuery(int queryNum) {
+    public void runQuery(int queryNum, String testFile) {
 
         final String oracleURL = // Magic lectura -> aloe access spell
                 "jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
@@ -650,12 +748,24 @@ public class Prog4 {
         String date1 = "";
         String date2 = "";
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader r = null;
+        if (testFile == null) {
+            r = new BufferedReader(new InputStreamReader(System.in));
+        } else {
+            try {
+                r = new BufferedReader(new FileReader(testFile));
+            } catch (FileNotFoundException e) {
+                System.err.println("File not found: " + testFile);
+                e.printStackTrace();
+            }
+        }
         try {
             switch (queryNum) {
                 case 1:
                     System.out.println("Enter clientId: ");
                     input = r.readLine();
                     int clientId = Integer.parseInt(input);
+                    String clientId = input;
                     query = String.format(Queries.query1, clientId, clientId);
                     break;
                 case 2:
@@ -678,6 +788,25 @@ public class Prog4 {
                 case 5:
                     // TODO: Insert params into the prepped query
                     query = Queries.query5;
+                    System.out.println("Enter hotel id: ");
+                    String hotel_id = r.readLine();
+                    System.out.println("Enter start date: ");
+                    date1 = r.readLine();
+                    System.out.println("Enter end date: ");
+                    date2 = r.readLine();
+                    query = String.format(Queries.query5, hotel_id, date1, date2);
+                    break;
+                case 6:
+                    // TODO: insert record (any type)
+                    query = RecordInsertion();
+                    break;
+                case 7:
+                    // TODO: delete record (any type)
+                    query = RecordDeletion();
+                    break;
+                case 8:
+                    // TODO: update record (any type)
+                    query = RecordUpdate();
                     break;
                 default:
                     System.err.println("Invalid query number");
@@ -691,11 +820,46 @@ public class Prog4 {
         // Sending the query to the DBMS, and displaying results
         Statement stmt = null;
         ResultSet answer = null;
+        int rowsChanged = 0;
         try {
             stmt = dbconn.createStatement();
             answer = stmt.executeQuery(query);
+            if (queryNum < 6) {
+                answer = stmt.executeQuery(query);
+            } else {
+                rowsChanged = stmt.executeUpdate(query);
+            }
 
             parseQuery1(answer);
+            switch (queryNum) {
+                case 1:
+                    parseQuery1(answer);
+                    break;
+                case 2:
+                    parseQuery2(answer);
+                    break;
+                case 3:
+                    parseQuery3(answer);
+                    break;
+                case 4:
+                    parseQuery4(answer);
+                    break;
+                case 5:
+                    parseQuery5(answer);
+                    break;
+                case 6:
+                    parseQuery6(rowsChanged);
+                    break;
+                case 7:
+                    parseQuery7(rowsChanged);
+                    break;
+                case 8:
+                    parseQuery8(rowsChanged);
+                    break;
+                default:
+                    System.err.println("Invalid query number");
+                    break;
+            }
 
             // Shutting down DBMS.
             stmt.close();
@@ -792,8 +956,12 @@ public class Prog4 {
 
                 // iterating through rows in answer
                 // TODO: Output for this will be extra funky
+                // TODO: replace template val printout
                 while (answer.next()) {
                     System.out.println(answer.getString("cost")); // TODO: replace template
+                    System.out.println(answer.getString("amenityName") + "\t" + answer.getString("avg_rating")); // TODO:
+                                                                                                                 // replace
+                                                                                                                 // template
                 }
             }
             System.out.println();
@@ -825,6 +993,7 @@ public class Prog4 {
                 // iterating through rows in answer
                 while (answer.next()) {
                     System.out.println(answer.getString("average_rating"));
+                    System.out.println(answer.getString("amenityName") + "\t" + answer.getString("avg_rating"));
                 }
             }
             System.out.println();
@@ -869,6 +1038,21 @@ public class Prog4 {
             System.exit(-1);
 
         }
+    }
+
+    public void parseQuery6(int rowsChanged) {
+        System.out.println("Query Comeplete --- Rows Inserted: " + rowsChanged);
+        // TODO: More detail about which table it was added to???
+    }
+
+    public void parseQuery7(int rowsChanged) {
+        System.out.println("Query Comeplete --- Rows Deleted: " + rowsChanged);
+        // TODO: More detail about which table it was added to???
+    }
+
+    public void parseQuery8(int rowsChanged) {
+        System.out.println("Query Comeplete --- Rows Updated: " + rowsChanged);
+        // TODO: More detail about which table it was added to???
     }
 
 }
