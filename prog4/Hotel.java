@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -10,6 +12,11 @@ public class Hotel {
     	this.hotelId = UUID.randomUUID().toString();
         this.name = name;
     }
+    
+	@Override
+	public String toString() {
+	    return hotelId + ", " + name;
+	}
     
 	public String GetFields() {
 		

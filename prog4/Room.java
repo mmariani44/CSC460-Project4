@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -13,6 +15,11 @@ public class Room {
         this.hotelId = hotelId;
         this.amenitiesTotal = 0;
         this.roomRate = roomRate;
+    }
+    
+    @Override
+    public String toString() {
+    	return roomId + ", " + hotelId + ", " + amenitiesTotal + ", " + roomRate;
     }
     
 	public String GetFields() {

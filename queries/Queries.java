@@ -25,8 +25,7 @@ LEFT JOIN (
   GROUP BY amenityId, hotelId
 ) AS a ON b.hotelId = a.hotelId
 WHERE c.clientId = %s
-GROUP BY c.firstName, c.lastName;
-							
+GROUP BY c.firstName, c.lastName;			
 """;
 	
 	public static final String query2 = // parameter(s): date 
@@ -57,7 +56,6 @@ INNER JOIN Hotel.Booking b ON c.clientId = b.clientId
 INNER JOIN Hotel.Room r ON b.roomId = r.roomId AND b.hotelId = r.hotelId
 WHERE b.startDate <= TO_DATE('%s','YYYY-MM-DD') AND b.endDate >= TO_DATE('%s','YYYY-MM-DD')
 ORDER BY r.roomId, CustomerCategory;
-		
 """;
 
 	
@@ -69,10 +67,22 @@ SELECT a.amenityName, AVG(r.rating) AS AverageRating
 FROM Hotel.Amenity a
 INNER JOIN Hotel.Rating r ON a.amenityId = r.amenityId AND r.dateStart >= TO_DATE('%s','YYYY-MM-DD') AND r.dateStart <= TO_DATE('%s','YYYY-MM-DD')
 GROUP BY a.amenityName
-ORDER BY AverageRating DESC;
-				
+ORDER BY AverageRating DESC;			
 """;
 	
-	public static final String query5 ="";
+	// Print the top 5 amenities by the average rating over a specified date range for a specific hotel.
+	// Allow the user to input the hotel ID, start date, and end date.
+	public static final String query5 =
+"""
+SELECT a.amenityName, AVG(r.rating) AS avg_rating
+FROM Hotel.Amenity a
+INNER JOIN Hotel.Rating r ON a.amenityId = r.amenityId
+INNER JOIN Hotel.Booking b ON r.clientId = b.clientId AND r.hotelId = b.hotelId
+WHERE b.hotelId = %s
+AND b.startDate >= %s
+AND b.endDate <= %s
+GROUP BY a.amenityName
+ORDER BY AVG(r.rating) DESC;
+""";	
 			
 }
