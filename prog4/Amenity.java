@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -13,6 +15,12 @@ public class Amenity {
         this.hotelId = hotelId;
         this.amenityName = amenityName;
     }
+    
+    @Override
+    public String toString() {
+        return amenityId + ", " + hotelId + ", " + amenityName + ", " + ratingId;
+    }
+
     
 	public String GetFields() {
 		

@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -18,6 +20,12 @@ public class Employee {
 		this.duty = duty;
 		this.wage = wage;
 	}
+	
+	@Override
+	public String toString() {
+	    return employeeId + ", " + hotelId + ", " + firstName + ", " + lastName + ", " + duty + ", " + wage;
+	}
+
 	
 	public String GetFields() {
 		

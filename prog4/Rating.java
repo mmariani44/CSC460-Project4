@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -14,6 +16,12 @@ public class Rating {
 		this.comments = comments;
 		this.amenityId = amenityId;
 	}
+	
+	@Override
+	public String toString() {
+	    return ratingId + "," + rating + "," + comments + "," + amenityId;
+	}
+
 	
 	public String GetFields() {
 		

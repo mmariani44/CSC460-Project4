@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.sql.Date;
 
@@ -16,6 +18,11 @@ public class Booking {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	
+	public String toString() {
+	    return clientId + ", " + hotelId + ", " + roomId + ", " + startDate + ", " + endDate;
+	}
+
 	
 	public String GetFields() {
 		

@@ -1,3 +1,5 @@
+package prog4;
+
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
@@ -13,6 +15,11 @@ public class Shift {
 		this.dateEnd = dateEnd;
 	}
 	
+    @Override
+    public String toString() {
+    	return employeeId + ", " + dateStart + ", " + dateEnd;
+    }
+	
 	public String GetFields() {
 		
 	    StringBuilder sb = new StringBuilder();
@@ -23,4 +30,5 @@ public class Shift {
 	    sb.delete(sb.length() - 2, sb.length()); // remove the last ", "
 	    return sb.toString();
 	}
+	
 }
