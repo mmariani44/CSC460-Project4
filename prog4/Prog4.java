@@ -27,7 +27,16 @@ public class Prog4 {
 
         String input = "";
         while (input != "q") {
-            System.out.println("Enter a query number (1-5) or q to quit: ");
+            System.out.println("Select which operation you would like to perform by entering the labeled number:\n"
+                    + "(1) Print customer's total bill.\n"
+                    + "(2) Print all customers staying at this location.\n"
+                    + "(3) Print the schedule of staff for a given week.\n"
+                    + "(4) Print the average ratings of amenities within a two day range.\n"
+                    + "(5) TBD\n"
+                    + "(6) Insert new record.\n"
+                    + "(7) Delete existing record.\n"
+                    + "(8) Update existing record.\n"
+                    + "Or enter q to quit.");
             try {
                 input = reader.readLine();
             } catch (IOException e) {
@@ -51,9 +60,9 @@ public class Prog4 {
 
     // interface for making the code less ugly. doesnt really matter, but better
     // than having 8 if/elses
-    interface CmdAction {
-        void cmd();
-    }
+    // interface CmdAction {
+    // void cmd();
+    // }
 
     /*
      * public static void main(String[] args) {
@@ -74,14 +83,15 @@ public class Prog4 {
     // System.out.println(
     // "Select which operation you would like to perform by entering the labeled
     // number:\n"
-    // + "(1) Insert new record.\n"
-    // + "(2) Delete existing record.\n"
-    // + "(3) Update existing record.\n"
-    // + "(4) Print customer's total bill.\n"
-    // + "(5) Print all customers staying at this location.\n"
-    // + "(6) Print the schedule of staff for a given week.\n"
-    // + "(7) Print the average ratings of amenities within a two day range.\n"
-    // + "(8) TBD\n"
+
+    // + "(1) Print customer's total bill.\n"
+    // + "(2) Print all customers staying at this location.\n"
+    // + "(3) Print the schedule of staff for a given week.\n"
+    // + "(4) Print the average ratings of amenities within a two day range.\n"
+    // + "(5) TBD\n"
+    // + "(6) Insert new record.\n"
+    // + "(7) Delete existing record.\n"
+    // + "(8) Update existing record.\n"
     // + "Or enter q to quit.");
 
     // // collect user input and verify
@@ -291,10 +301,6 @@ public class Prog4 {
         sqlCmd.append("(" + cols + ")");
         sqlCmd.append("VALUES (" + values + ")");
 
-        // ExecuteSQLCommand(sqlCmd.toString()); // TODO: Replace with call to existing
-        // func
-        // runQuery(6, sqlCmd.toString());
-        // parseQuery6(); // TODO save in appropriate type
         return sqlCmd.toString();
     }
 
@@ -391,8 +397,6 @@ public class Prog4 {
 
         scanner.close();
 
-        // runQuery(7, sqlCmd.toString());
-        // parseQuery7(); // TODO save in appropriate type
         return sqlCmd.toString();
     }
 
@@ -423,9 +427,7 @@ public class Prog4 {
         }
 
         scanner.close();
-        // TODO: Finish implementing
-        // runQuery(8, sqlCmd.toString());
-        // parseQuery8(); // TODO save in appropriate type
+
         return sqlCmd.toString();
     }
 
@@ -670,9 +672,11 @@ public class Prog4 {
                 System.out.println();
 
                 // iterating through rows in answer
-                // TODO: Output for this will be extra funky
+                // TODO: replace template val printout
                 while (answer.next()) {
-                    System.out.println(answer.getString("cost")); // TODO: replace template
+                    System.out.println(answer.getString("amenityName") + "\t" + answer.getString("avg_rating")); // TODO:
+                                                                                                                 // replace
+                                                                                                                 // template
                 }
             }
             System.out.println();
@@ -703,7 +707,7 @@ public class Prog4 {
 
                 // iterating through rows in answer
                 while (answer.next()) {
-                    System.out.println(answer.getString("average_rating"));
+                    System.out.println(answer.getString("amenityName") + "\t" + answer.getString("avg_rating"));
                 }
             }
             System.out.println();
