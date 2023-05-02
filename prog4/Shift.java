@@ -1,6 +1,5 @@
 package prog4;
 
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
 public class Shift {
@@ -21,14 +20,7 @@ public class Shift {
     }
 	
 	public String GetFields() {
-		
-	    StringBuilder sb = new StringBuilder();
-	    Field[] fields = this.getClass().getDeclaredFields();
-	    for (Field field : fields) {
-	    	sb.append(field.getName()).append(", ");
-	    }
-	    sb.delete(sb.length() - 2, sb.length()); // remove the last ", "
-	    return sb.toString();
+		return "employeeId, dateStart, dateEnd";
 	}
 	
 }
