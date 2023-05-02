@@ -67,7 +67,7 @@ public class Prog4 {
 
         //
         StringBuilder sqlCmd = new StringBuilder();
-        sqlCmd.append("INSERT INTO Hotel");
+        sqlCmd.append("INSERT INTO mmariani44.Hotel");
         String cols = "";
         String values = "";
 
@@ -215,13 +215,13 @@ public class Prog4 {
             sqlCmd.append("Shift ");
 
             System.out.println("Enter Shift information in a comma seperated list as such:\n"
-                    + "Employee ID, Start Date/Time (yyyy-mm-dd hh:mm:ss), End Date/Time (yyyy-mm-dd hh:mm:ss)");
+                    + "Employee ID, Start Date (yyyy-mm-dd), End Date (yyyy-mm-dd)");
             String shiftInfo = scanner.nextLine();
             String[] shiftArray = shiftInfo.split(",");
             try {
 
-                Shift shift = new Shift(shiftArray[0].strip(), Timestamp.valueOf(shiftArray[1].strip()),
-                        Timestamp.valueOf(shiftArray[2].strip()));
+                Shift shift = new Shift(shiftArray[0].strip(), Date.valueOf(shiftArray[1].strip()),
+                        Date.valueOf(shiftArray[2].strip()));
                 cols = shift.GetFields();
                 values = shift.toString();
 
@@ -248,7 +248,7 @@ public class Prog4 {
 
         //
         StringBuilder sqlCmd = new StringBuilder();
-        sqlCmd.append("DELETE FROM Hotel");
+        sqlCmd.append("DELETE FROM mmariani44.Hotel");
 
         
         
@@ -322,12 +322,12 @@ public class Prog4 {
             sqlCmd.append("Shift WHERE ");
 
             System.out.println(
-                    "Specify the shift you are deleting (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
+                    "Specify the shift you are deleting (Employee ID, Hotel ID, Start Date (yyyy-mm-dd)): ");
             String shiftInfo = scanner.nextLine();
             String[] shiftArray = shiftInfo.split(",");
 
             sqlCmd.append("employeeId = '" + shiftArray[0].strip() + "' AND hotelId = '" + shiftArray[1].strip() + "'"
-            		+ " AND TO_DATE('" + shiftArray[2].strip() + "', 'yyyy-mm-dd hh:mm:ss')");
+            		+ " AND TO_DATE('" + shiftArray[2].strip() + "', 'yyyy-mm-dd')");
         }
 
         scanner.close();
@@ -358,7 +358,7 @@ public class Prog4 {
         String input = scanner.nextLine().strip().toLowerCase();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("UPDATE Hotel");
+        sb.append("UPDATE mmariani44.Hotel");
 
         int i = 0;
         

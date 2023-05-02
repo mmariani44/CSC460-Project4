@@ -10,6 +10,7 @@
 
 package prog4;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /*+----------------------------------------------------------------------
@@ -44,8 +45,8 @@ import java.sql.Timestamp;
 public class Shift {
 	
 	public String employeeId;
-	public Timestamp dateStart;
-	public Timestamp dateEnd;
+	public Date dateStart;
+	public Date dateEnd;
 	
 
 	/*---------------------------------------------------------------------
@@ -59,13 +60,13 @@ public class Shift {
 	|
 	|  Parameters:
 	|       		String employeeId -- unique id of employee
-	|       		Timestamp dateStart -- start datetime of shift
-	|       		Timestamp dateEnd -- end datetime of shift
+	|       		date dateStart -- start datetime of shift
+	|       		date dateEnd -- end datetime of shift
 	|
 	|
 	|  Returns: Shift object with given field values.
 	*-------------------------------------------------------------------*/
-	public Shift(String employeeId, Timestamp dateStart, Timestamp dateEnd) {
+	public Shift(String employeeId, Date dateStart, Date dateEnd) {
 		this.employeeId = employeeId;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;

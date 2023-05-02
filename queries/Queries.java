@@ -40,11 +40,11 @@ WITH unpaid_amenities AS (
         ha.amenityId,
         ha.price
     FROM 
-        HotelBooking hb
+        mmariani44.HotelBooking hb
     JOIN 
-        HotelAmenity ha ON hb.hotelId = ha.hotelId
+        mmariani44.HotelAmenity ha ON hb.hotelId = ha.hotelId
     WHERE 
-        NOT EXISTS (SELECT 1 FROM HotelRating hr WHERE hr.amenityId = ha.amenityId AND hr.clientId = hb.clientId)
+        NOT EXISTS (SELECT 1 FROM mmariani44.HotelRating hr WHERE hr.amenityId = ha.amenityId AND hr.clientId = hb.clientId)
 )
 SELECT 
     hc.clientId,
@@ -57,11 +57,11 @@ SELECT
         (CASE WHEN hc.isStudent = 1 THEN 0.20 ELSE 0 END)
     )) + COALESCE(SUM(ua.price), 0) AS totalBill
 FROM 
-    HotelClient hc
+    mmariani44.HotelClient hc
 JOIN 
-    HotelBooking hb ON hc.clientId = hb.clientId
+    mmariani44.HotelBooking hb ON hc.clientId = hb.clientId
 JOIN 
-    HotelRoom hr ON hb.hotelId = hr.hotelId AND hb.roomId = hr.roomId
+    mmariani44.HotelRoom hr ON hb.hotelId = hr.hotelId AND hb.roomId = hr.roomId
 LEFT JOIN 
     unpaid_amenities ua ON ua.clientId = hc.clientId
 WHERE 
@@ -80,9 +80,9 @@ SELECT
     hb.roomId,
     hc.membershipType
 FROM 
-    HotelClient hc
+    mmariani44.HotelClient hc
 JOIN 
-    HotelBooking hb ON hc.clientId = hb.clientId
+    mmariani44.HotelBooking hb ON hc.clientId = hb.clientId
 WHERE 
     TO_DATE('%s', 'YYYY-MM-DD') BETWEEN hb.startDate AND hb.endDate
 ORDER BY 
@@ -98,9 +98,9 @@ SELECT
     hs.dateStart,
     hs.dateEnd
 FROM 
-    HotelEmployee he
+    mmariani44.HotelEmployee he
 JOIN 
-    HotelShift hs ON he.employeeId = hs.employeeId
+    mmariani44.HotelShift hs ON he.employeeId = hs.employeeId
 WHERE 
     hs.dateStart >=  TO_DATE('%s', 'YYYY-MM-DD') AND hs.dateEnd <= TO_DATE('%s', 'YYYY-MM-DD')
 ORDER BY 
@@ -116,9 +116,9 @@ SELECT
     ha.amenityName,
     AVG(hr.rating) AS averageRating
 FROM 
-    HotelAmenity ha
+    mmariani44.HotelAmenity ha
 JOIN 
-    HotelRating hr ON ha.amenityId = hr.amenityId
+    mmariani44.HotelRating hr ON ha.amenityId = hr.amenityId
 WHERE 
     hr.ratingDate BETWEEN TO_DATE('%s', 'YYYY-MM-DD') AND TO_DATE('%s', 'YYYY-MM-DD')
 GROUP BY 
@@ -140,17 +140,17 @@ SELECT
         (CASE WHEN hc.isStudent = 1 THEN 0.20 ELSE 0 END)
     )) AS roomRevenue,
     (SELECT SUM(ha.price)
-     FROM HotelAmenity ha
-     JOIN HotelRating hr ON ha.amenityId = hr.amenityId
+     FROM mmariani44.HotelAmenity ha
+     JOIN mmariani44.HotelRating hr ON ha.amenityId = hr.amenityId
      WHERE ha.hotelId = %s AND hr.ratingDate BETWEEN TO_DATE('%s', 'YYYY-MM-DD') AND TO_DATE('%s', 'YYYY-MM-DD')) AS amenityRevenue
 FROM 
-    HotelHotel hh
+    mmariani44.HotelHotel hh
 JOIN 
-    HotelBooking hb ON hh.hotelId = hb.hotelId
+    mmariani44.HotelBooking hb ON hh.hotelId = hb.hotelId
 JOIN 
-    HotelClient hc ON hc.clientId = hb.clientId
+    mmariani44.HotelClient hc ON hc.clientId = hb.clientId
 JOIN 
-    HotelRoom hr ON hb.hotelId = hr.hotelId AND hb.roomId = hr.roomId
+    mmariani44.HotelRoom hr ON hb.hotelId = hr.hotelId AND hb.roomId = hr.roomId
 WHERE 
     hh.hotelId = %s AND
     hb.startDate >= TO_DATE('%s', 'YYYY-MM-DD') AND hb.endDate <= TO_DATE('%s', 'YYYY-MM-DD')
