@@ -22,9 +22,7 @@ public class Prog4 {
     public static void main(String[] args) {
         Prog4 prog4 = new Prog4(args[0], args[1]);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        
-        
+       
         String input = "";
         System.out.println("Select which operation you would like to perform by entering the labeled number:\n"
                 + "(1) Print customer's total bill.\n"
@@ -47,6 +45,9 @@ public class Prog4 {
 		} catch(Exception e) {}
     }
 
+    
+    
+    
 
     public static void testEntry(Prog4 prog, int queryNum, String testFile) {
         prog.runQuery(queryNum, testFile);
