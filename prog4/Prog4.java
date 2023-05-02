@@ -1,3 +1,29 @@
+/**
+ * Assignment:  Program #3
+ * Author:  Mauricio Brooks, Mason Mariani, Arnav Popat
+ * Course: CSC 460
+ * Instructor: L. McCann
+ * Due Date: March 30th 2023
+ * Description: creates a connection to Oracle DB and prompts user for
+ * querying options. inserting, deleting, updating are handled as well as query
+ * parsing and query output formatting.
+ *
+ * Language: Java 16
+ * External Packages: None
+ *
+ * Deficiencies: 
+ * None
+ *
+ * Constants: 
+ * none
+ *
+ * Constructors:
+ * none
+ *
+ * Public Methods:
+ * none
+ */
+
 package prog4;
 
 import java.io.BufferedReader;
@@ -39,11 +65,6 @@ public class Prog4 {
             System.err.println("Error reading input");
             e.printStackTrace();
         }
-        /*
-        if (input.equals("q") || input.equals("Q")) {
-            break;
-        }
-        */
         int queryNum = Integer.parseInt(input);
         prog4.runQuery(queryNum, null);
     }
@@ -57,7 +78,10 @@ public class Prog4 {
     }
 
     // ------------------ THIS SECTION IS FOR TABLE UPDATES --------------------//
-
+    
+    /**
+    this method handles the insertion function depending on user input
+    */
     private String RecordInsertion() {
 
         // prompt user
@@ -65,7 +89,7 @@ public class Prog4 {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().strip().toLowerCase();
 
-        //
+        
         StringBuilder sqlCmd = new StringBuilder();
         sqlCmd.append("INSERT INTO mmariani44.Hotel");
         String cols = "";
@@ -238,7 +262,10 @@ public class Prog4 {
 
         return sqlCmd.toString();
     }
-
+    
+    /**
+    this method handles the deletion function as well as different user inputs
+    */
     private String RecordDeletion() {
 
         // prompt user
@@ -334,7 +361,9 @@ public class Prog4 {
 
         return sqlCmd.toString();
     }
-
+    /**
+    helper function for checking if given column is marked as a string
+    */
     private boolean checkCols(String col) {
     	if (col.strip().substring(col.length()-2).equals("Id") ||
     			col.strip().substring(col.length()-4).equals("Name") ||
@@ -347,9 +376,9 @@ public class Prog4 {
     	return false;
     }
     
-    // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ =
-    // _given_
-    // this command is then sent off to the execute method.
+    /**
+    this method handles the update function as well as user input on the front-end side
+    */
     private String RecordUpdate() {
 
         System.out.println("Specify the table you are updating: ");
@@ -651,7 +680,9 @@ public class Prog4 {
 
     // ------------------ EVERYTHING BELOW IS FOR THE QUERIES ---------------------- //
 
-    // TODO: Query parameters need sanitization?
+    /**
+    connects to OracleDriver to run queries
+    */
     public void runQuery(int queryNum, String testFile) {
 
         final String oracleURL = // Magic lectura -> aloe access spell
@@ -810,7 +841,9 @@ public class Prog4 {
         }
 
     }
-
+    /**
+    handles parsing for query 1
+    */
     public void parseQuery1(ResultSet answer, String query) {
         try {
             if (answer != null) {
@@ -841,7 +874,9 @@ public class Prog4 {
 
         }
     }
-
+    /**
+    handles parsing for query 2
+    */
     public void parseQuery2(ResultSet answer, String query) {
         try {
             if (answer != null) {
@@ -873,7 +908,9 @@ public class Prog4 {
 
         }
     }
-
+    /**
+    handles parsing for query 3
+    */
     public void parseQuery3(ResultSet answer, String query) {
         try {
             if (answer != null) {
@@ -905,7 +942,9 @@ public class Prog4 {
 
         }
     }
-
+    /**
+    handles parsing for query 4
+    */
     public void parseQuery4(ResultSet answer, String query) {
         try {
             if (answer != null) {
@@ -937,7 +976,9 @@ public class Prog4 {
 
         }
     }
-
+    /**
+    handles parsing for query 5
+    */
     public void parseQuery5(ResultSet answer, String query) {
         try {
             if (answer != null) {
@@ -970,17 +1011,25 @@ public class Prog4 {
 
         }
     }
-
+    /**
+    handles parsing for query 6
+    */
     public void parseQuery6(int rowsChanged, String query) {
         System.out.println("\nThe query [" + query + "] inserted " + rowsChanged + ": rows\n");
         // TODO: More detail about which table it was added to???
     }
-
+    
+    /**
+    handles parsing for query 7
+    */
     public void parseQuery7(int rowsChanged, String query) {
         System.out.println("\nThe query [" + query + "] deleted " + rowsChanged + ": rows\n");
         // TODO: More detail about which table it was added to???
     }
-
+    
+    /**
+    handles parsing for query 8
+    */
     public void parseQuery8(int rowsChanged, String query) {
         System.out.println("\nThe query [" + query + "] updated " + rowsChanged + ": rows\n");
         // TODO: More detail about which table it was added to???
