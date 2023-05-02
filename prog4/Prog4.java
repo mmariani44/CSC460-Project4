@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.Scanner;
 
+// import javax.naming.spi.DirStateFactory.Result;
+
 import queries.Queries;
 
 public class Prog4 {
@@ -53,49 +55,6 @@ public class Prog4 {
         void cmd();
     }
 
-    private static CmdAction[] cmdActions = new CmdAction[] {
-            new CmdAction() {
-                public void cmd() {
-                    RecordInsertion();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    RecordDeletion();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    RecordUpdate();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    PrintBill();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    PrintAllGuests();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    PrintAllSchedules();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    PrintAverageRatings();
-                }
-            },
-            new CmdAction() {
-                public void cmd() {
-                    PrintOurChoice();
-                }
-            },
-    };
-
     /*
      * public static void main(String[] args) {
      * 
@@ -109,66 +68,62 @@ public class Prog4 {
      * }
      */
 
-    private static boolean PromptUser() {
+    // private static boolean PromptUser() {
 
-        // ask user what they want to do
-        System.out.println(
-                "Select which operation you would like to perform by entering the labeled number:\n"
-                        + "(1) Insert new record.\n"
-                        + "(2) Delete existing record.\n"
-                        + "(3) Update existing record.\n"
-                        + "(4) Print customer's total bill.\n"
-                        + "(5) Print all customers staying at this location.\n"
-                        + "(6) Print the schedule of staff for a given week.\n"
-                        + "(7) Print the average ratings of amenities within a two day range.\n"
-                        + "(8) TBD\n"
-                        + "Or enter q to quit.");
+    // // ask user what they want to do
+    // System.out.println(
+    // "Select which operation you would like to perform by entering the labeled
+    // number:\n"
+    // + "(1) Insert new record.\n"
+    // + "(2) Delete existing record.\n"
+    // + "(3) Update existing record.\n"
+    // + "(4) Print customer's total bill.\n"
+    // + "(5) Print all customers staying at this location.\n"
+    // + "(6) Print the schedule of staff for a given week.\n"
+    // + "(7) Print the average ratings of amenities within a two day range.\n"
+    // + "(8) TBD\n"
+    // + "Or enter q to quit.");
 
-        // collect user input and verify
-        Scanner scanner = new Scanner(System.in);
+    // // collect user input and verify
+    // Scanner scanner = new Scanner(System.in);
 
-        // check if quit command
-        String input = scanner.nextLine().strip();
-        scanner.close();
-        if (input.equals("Q") || input.equals("q")) {
-            return false;
-        }
+    // // check if quit command
+    // String input = scanner.nextLine().strip();
+    // scanner.close();
+    // if (input.equals("Q") || input.equals("q")) {
+    // return false;
+    // }
 
-        // check if input is valid number and within bounds. if invalid, return and do
-        // loop again
-        int cmdNumber = 0;
-        try {
-            cmdNumber = Integer.parseInt(input);
-        } catch (Exception e) {
-            System.out.println("Enter a valid number.");
-            return true;
-        }
-        if (cmdNumber < 1 || cmdNumber > 8) {
-            System.out.println("Enter a number between 1 and 8.");
-            return true;
-        }
+    // // check if input is valid number and within bounds. if invalid, return and
+    // do
+    // // loop again
+    // int cmdNumber = 0;
+    // try {
+    // cmdNumber = Integer.parseInt(input);
+    // } catch (Exception e) {
+    // System.out.println("Enter a valid number.");
+    // return true;
+    // }
+    // if (cmdNumber < 1 || cmdNumber > 8) {
+    // System.out.println("Enter a number between 1 and 8.");
+    // return true;
+    // }
 
-        // setting the index to use for the command in the array
-        cmdNumber -= 1;
+    // // setting the index to use for the command in the array
+    // cmdNumber -= 1;
 
-        // do command based on user input
-        cmdActions[cmdNumber].cmd();
+    // // do command based on user input
+    // cmdActions[cmdNumber].cmd();
 
-        // do the loop again
-        return true;
+    // // do the loop again
+    // return true;
 
-    }
-
-    private static void ExecuteSQLCommand(String cmd) {
-
-    }
+    // }
 
     // ----------------------------------- THIS SECTION IS FOR TABLE UPDATES
     // ----------------------------------- //
 
-    // TODO CLASSES ARE STILL MISSING THEIR TOSTRING METHODS
-
-    private static void RecordInsertion() {
+    private String RecordInsertion() {
 
         // prompt user
         System.out.println("Specify the table you are inserting into:");
@@ -336,11 +291,14 @@ public class Prog4 {
         sqlCmd.append("(" + cols + ")");
         sqlCmd.append("VALUES (" + values + ")");
 
-        ExecuteSQLCommand(sqlCmd.toString());
-
+        // ExecuteSQLCommand(sqlCmd.toString()); // TODO: Replace with call to existing
+        // func
+        // runQuery(6, sqlCmd.toString());
+        // parseQuery6(); // TODO save in appropriate type
+        return sqlCmd.toString();
     }
 
-    private static void RecordDeletion() {
+    private String RecordDeletion() {
 
         // prompt user
         System.out.println("Specify the table you are deleting from:");
@@ -433,16 +391,18 @@ public class Prog4 {
 
         scanner.close();
 
-        ExecuteSQLCommand(sqlCmd.toString());
-
+        // runQuery(7, sqlCmd.toString());
+        // parseQuery7(); // TODO save in appropriate type
+        return sqlCmd.toString();
     }
 
-    private static void RecordUpdate() {
+    private String RecordUpdate() {
 
         System.out.println("Specify the table you are updating: ");
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().strip().toLowerCase();
+        StringBuilder sqlCmd = new StringBuilder();
 
         switch (input) {
             case "client":
@@ -463,54 +423,13 @@ public class Prog4 {
         }
 
         scanner.close();
-
+        // TODO: Finish implementing
+        // runQuery(8, sqlCmd.toString());
+        // parseQuery8(); // TODO save in appropriate type
+        return sqlCmd.toString();
     }
 
     // ----------------------------------- EVERYTHING BELOW IS FOR THE QUERIES
-    // ----------------------------------- //
-
-    /*
-     * Print a current bill (total $) for a customer for their stay and all unpaid
-     * amenities
-     */
-    private static void PrintBill() {
-
-    }
-
-    /*
-     * Given a certain date, output the customers that are currently staying at the
-     * hotel along with their room
-     * numbers. Order by room numbers and group by category of customer.
-     */
-    private static void PrintAllGuests() {
-
-    }
-
-    /*
-     * 3. Print the schedule of staff given a week (input the start date of the week
-     * by the user). A schedule
-     * contains the list of staff members working that week and a staff member’s
-     * working hours (start and stop times).
-     */
-    private static void PrintAllSchedules() {
-
-    }
-
-    /*
-     * Print the average ratings of different amenities recorded within the range of
-     * two dates(input by the user)
-     * and sort them in descending order
-     */
-    private static void PrintAverageRatings() {
-
-    }
-
-    // TODO, this one will be changed depending on what we wan to do
-    private static void PrintOurChoice() {
-
-    }
-
-    // ------------------------------------- END MASON CODE
     // ----------------------------------- //
 
     // TODO: Query parameters need sanitization?
@@ -586,8 +505,25 @@ public class Prog4 {
                     query = String.format(Queries.query4, date1, date2);
                     break;
                 case 5:
-                    // TODO: Insert params into the prepped query
-                    query = Queries.query5;
+                    System.out.println("Enter hotel id: ");
+                    String hotel_id = r.readLine();
+                    System.out.println("Enter start date: ");
+                    date1 = r.readLine();
+                    System.out.println("Enter end date: ");
+                    date2 = r.readLine();
+                    query = String.format(Queries.query5, hotel_id, date1, date2);
+                    break;
+                case 6:
+                    // TODO: insert record (any type)
+                    query = RecordInsertion();
+                    break;
+                case 7:
+                    // TODO: delete record (any type)
+                    query = RecordDeletion();
+                    break;
+                case 8:
+                    // TODO: update record (any type)
+                    query = RecordUpdate();
                     break;
                 default:
                     System.err.println("Invalid query number");
@@ -601,9 +537,14 @@ public class Prog4 {
         // Sending the query to the DBMS, and displaying results
         Statement stmt = null;
         ResultSet answer = null;
+        int rowsChanged = 0;
         try {
             stmt = dbconn.createStatement();
-            answer = stmt.executeQuery(query);
+            if (queryNum < 6) {
+                answer = stmt.executeQuery(query);
+            } else {
+                rowsChanged = stmt.executeUpdate(query);
+            }
 
             switch (queryNum) {
                 case 1:
@@ -620,6 +561,15 @@ public class Prog4 {
                     break;
                 case 5:
                     parseQuery5(answer);
+                    break;
+                case 6:
+                    parseQuery6(rowsChanged);
+                    break;
+                case 7:
+                    parseQuery7(rowsChanged);
+                    break;
+                case 8:
+                    parseQuery8(rowsChanged);
                     break;
                 default:
                     System.err.println("Invalid query number");
@@ -798,6 +748,21 @@ public class Prog4 {
             System.exit(-1);
 
         }
+    }
+
+    public void parseQuery6(int rowsChanged) {
+        System.out.println("Query Comeplete --- Rows Inserted: " + rowsChanged);
+        // TODO: More detail about which table it was added to???
+    }
+
+    public void parseQuery7(int rowsChanged) {
+        System.out.println("Query Comeplete --- Rows Deleted: " + rowsChanged);
+        // TODO: More detail about which table it was added to???
+    }
+
+    public void parseQuery8(int rowsChanged) {
+        System.out.println("Query Comeplete --- Rows Updated: " + rowsChanged);
+        // TODO: More detail about which table it was added to???
     }
 
 }
