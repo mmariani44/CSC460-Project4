@@ -104,7 +104,7 @@ public class Booking {
 	|  Returns: String. Comma-separated string of Booking's field vals.
 	*-------------------------------------------------------------------*/
 	public String toString() {
-		return "'" + clientId + "', '" + hotelId + "', '" + roomId + "', " + startDate + ", " + endDate;
+		return "'" + clientId + "', '" + hotelId + "', '" + roomId + "', TO_DATE('" + startDate + "', 'yyyy-mm-dd'), TO_DATE('" + endDate + "', 'yyyy-mm-dd')";
 	}
 
 	/*---------------------------------------------------------------------

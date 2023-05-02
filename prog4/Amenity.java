@@ -92,7 +92,7 @@ public class Amenity {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-		return "'" + amenityId + "', '" + hotelId + "', '" + amenityName + "', ";
+		return "'" + amenityId + "', '" + hotelId + "', '" + amenityName + "'";
 	}
 
 	/*---------------------------------------------------------------------

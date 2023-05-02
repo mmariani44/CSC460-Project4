@@ -146,7 +146,7 @@ public class Prog4 {
             
         }
         
-        else if (input.toLowerCase().equals("room")) {
+        else if (input.toLowerCase().equals("amenity")) {
         	
             sqlCmd.append("Amenity ");
 
@@ -272,7 +272,7 @@ public class Prog4 {
             // build sql command
             sqlCmd.append("clientId = '" + bookingArray[0].strip() + "' AND hotelId = '" + bookingArray[1].strip()
                     + "' AND "
-                    + "roomId = '" + bookingArray[2].strip() + "' AND startDate = '" + bookingArray[3].strip() + "'");
+                    + "roomId = '" + bookingArray[2].strip() + "' AND startDate = '" + "TO_DATE('" + bookingArray[3].strip() + "', 'yyyy-mm-dd')");
         }
         else if (input.toLowerCase().equals("hotel")) {
             sqlCmd.append("Hotel WHERE ");
@@ -326,7 +326,8 @@ public class Prog4 {
             String shiftInfo = scanner.nextLine();
             String[] shiftArray = shiftInfo.split(",");
 
-            sqlCmd.append("employeeId = '" + shiftArray[0].strip() + "' AND hotelId = '" + shiftArray[1].strip() + "'");
+            sqlCmd.append("employeeId = '" + shiftArray[0].strip() + "' AND hotelId = '" + shiftArray[1].strip() + "'"
+            		+ " AND TO_DATE('" + shiftArray[2].strip() + "', 'yyyy-mm-dd hh:mm:ss')");
         }
 
         scanner.close();
@@ -416,6 +417,9 @@ public class Prog4 {
             	if (checkCols(col.strip())) {
             		sb.append(col.strip() + " = '" + bookingValsArray[i].strip() + "', ");
             	}
+            	else if (col.strip().contains("date") || col.strip().contains("Date")) {
+            		sb.append(col.strip() + " = ' TO_DATE('" + bookingValsArray[i].strip() + "', 'yyyy-mm-dd')");
+            	}
             	else {
                     sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
             	}
@@ -426,7 +430,7 @@ public class Prog4 {
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
             sb.append("WHERE " + "clientId = " + bookingArray[0].strip() + " AND hotelId = "
                     + bookingArray[1].strip()
-                    + " AND roomId = '" + bookingArray[2].strip() + "' AND startDate = " + bookingArray[0].strip());
+                    + " AND roomId = '" + bookingArray[2].strip() + "' AND startDate = TO_DATE('" + bookingArray[0].strip() + "', 'yyyy-mm-dd')");
         }
         else if (input.toLowerCase().equals("hotel")) {
             sb.append("Hotel SET ");
@@ -614,7 +618,9 @@ public class Prog4 {
             	if (checkCols(col.strip())) {
             		sb.append(col.strip() + " = '" + shiftValsArray[i].strip() + "', ");
             	}
-
+            	else if (col.strip().contains("date") || col.strip().contains("Date")) {
+            		sb.append(col.strip() + " = ' TO_DATE('" + shiftValsArray[i].strip() + "', 'yyyy-mm-dd')");
+            	}
             	else {
             		sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
             	}
@@ -624,7 +630,7 @@ public class Prog4 {
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
             sb.append("WHERE " + "employeeId = '" + shiftArray[0].strip() + "' AND hotelId = '" + shiftArray[1].strip()
-                    + "' AND dateStart = " + shiftArray[2].strip());
+                    + "' AND dateStart = TO_DATE('" + shiftArray[2].strip() + "', 'yyyy-mm-dd')");
         }
 
         scanner.close();

@@ -87,7 +87,7 @@ public class Shift {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-		return "'" + employeeId + "', " + dateStart + ", " + dateEnd;
+		return "'" + employeeId + "', TO_DATE('" + dateStart + "', 'yyyy-mm-dd'), TO_DATE('" + dateEnd + "', 'yyyy-mm-dd')";
 	}
 
 	/*---------------------------------------------------------------------
