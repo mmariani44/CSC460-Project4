@@ -52,82 +52,15 @@ public class Prog4 {
         }
     }
 
-    // ---------------------------------- MASON CODE -------------------------------------------- //
+    // ---------------------------------- MASON CODE
+    // -------------------------------------------- //
 
     public static void testEntry(Prog4 prog, int queryNum, String testFile) {
         prog.runQuery(queryNum, testFile);
     }
 
-    private static boolean PromptUser() {
-
-        // ask user what they want to do
-        System.out.println(
-                "Select which operation you would like to perform by entering the labeled number:\n"
-                        + "(1) Insert new record.\n"
-                        + "(2) Delete existing record.\n"
-                        + "(3) Update existing record.\n"
-                        + "(4) Print customer's total bill.\n"
-                        + "(5) Print all customers staying at this location.\n"
-                        + "(6) Print the schedule of staff for a given week.\n"
-                        + "(7) Print the average ratings of amenities within a two day range.\n"
-                        + "(8) TBD\n"
-                        + "Or enter q to quit.");
-
-        // collect user input and verify
-        Scanner scanner = new Scanner(System.in);
-
-        // check if quit command
-        String input = scanner.nextLine().strip();
-        scanner.close();
-        if (input.equals("Q") || input.equals("q")) {
-            return false;
-        }
-
-        // check if input is valid number and within bounds. if invalid, return and do
-        // loop again
-        int cmdNumber = 0;
-        try {
-            cmdNumber = Integer.parseInt(input);
-        } catch (Exception e) {
-            System.out.println("Enter a valid number.");
-            return true;
-        }
-        if (cmdNumber < 1 || cmdNumber > 8) {
-            System.out.println("Enter a number between 1 and 8.");
-            return true;
-        }
-
-        // setting the index to use for the command in the array
-        cmdNumber -= 1;
-        
-        return true;
-    }
-
-    // ---------------------------------- MASON CODE
-    // -------------------------------------------- //
-
-    // interface for making the code less ugly. doesnt really matter, but better
-    // than having 8 if/elses
-    // interface CmdAction {
-    // void cmd();
-    // }
-
-    /*
-     * public static void main(String[] args) {
-     * 
-     * while (true) {
-     * boolean promptAgain = PromptUser();
-     * if (!promptAgain) {
-     * break;
-     * }
-     * }
-     * 
-     * }
-     */
-
-    // ----------------------------------- THIS SECTION IS FOR TABLE UPDATES ----------------------------------- //
-
-
+    // ----------------------------------- THIS SECTION IS FOR TABLE UPDATES
+    // ----------------------------------- //
 
     private String RecordInsertion() {
 
@@ -224,7 +157,8 @@ public class Prog4 {
                 String[] amenityArray = amenityInfo.split(",");
                 try {
 
-                    Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip(), Float.parseFloat(amenityArray[2].strip()));
+                    Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip(),
+                            Float.parseFloat(amenityArray[2].strip()));
                     cols = Amenity.GetFields();
                     values = amenity.toString();
 
@@ -381,7 +315,8 @@ public class Prog4 {
             case "shift":
                 sqlCmd.append("Shift WHERE ");
 
-                System.out.println("Specify the shift you are deleting (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
+                System.out.println(
+                        "Specify the shift you are deleting (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
                 String shiftInfo = scanner.nextLine();
                 String[] shiftArray = shiftInfo.split(",");
 
@@ -394,8 +329,8 @@ public class Prog4 {
         return sqlCmd.toString();
     }
 
-    
-    // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ = _given_
+    // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ =
+    // _given_
     // this command is then sent off to the execute method.
     private String RecordUpdate() {
 
@@ -403,7 +338,7 @@ public class Prog4 {
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().strip().toLowerCase();
-        
+
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE Hotel");
         StringBuilder sqlCmd = new StringBuilder();
@@ -411,228 +346,232 @@ public class Prog4 {
         int i = 0;
         switch (input) {
             case "client":
-            	sb.append("Client SET ");
-            	
+                sb.append("Client SET ");
+
                 System.out.println("Specify the client you are updating (Client ID): ");
                 String clientId = scanner.nextLine();
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Client.GetFields());
+                        + Client.GetFields());
                 String clientCols = scanner.nextLine();
                 String[] clientColsArray = clientCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String clientVals = scanner.nextLine();
                 String[] clientValsArray = clientVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : clientColsArray) {
-                	
-                	sb.append(col.strip() + " = " + clientValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + clientValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
                 sb.append("WHERE " + "clientId = " + clientId);
 
             case "booking":
-            	
-            	sb.append("Booking SET ");
-            	
+
+                sb.append("Booking SET ");
+
                 System.out.println(
                         "Specify the booking you are updating (Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd)): ");
                 String bookingInfo = scanner.nextLine();
                 String[] bookingArray = bookingInfo.split(",");
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Booking.GetFields());
+                        + Booking.GetFields());
                 String bookingCols = scanner.nextLine();
                 String[] bookingColsArray = bookingCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String bookingVals = scanner.nextLine();
                 String[] bookingValsArray = bookingVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : bookingColsArray) {
-                	
-                	sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
-                sb.append("WHERE " + "clientId = " + bookingArray[0].strip() + " AND hotelId = " +  bookingArray[1].strip()
-                		+ " AND roomId = " +  bookingArray[2].strip() + " AND startDate = " + bookingArray[0].strip());
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+                sb.append("WHERE " + "clientId = " + bookingArray[0].strip() + " AND hotelId = "
+                        + bookingArray[1].strip()
+                        + " AND roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[0].strip());
 
             case "hotel":
-            	
-            	sb.append("Hotel SET ");
-            	
+
+                sb.append("Hotel SET ");
+
                 System.out.println("Specify the hotel you are updating (Hotel ID): ");
                 String hotelId = scanner.nextLine();
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Hotel.GetFields());
+                        + Hotel.GetFields());
                 String hotelCols = scanner.nextLine();
                 String[] hotelColsArray = hotelCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String hotelVals = scanner.nextLine();
                 String[] hotelValsArray = hotelVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : hotelColsArray) {
-                	
-                	sb.append(col.strip() + " = " + hotelValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + hotelValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
                 sb.append("WHERE " + "hotelId = " + hotelId);
 
             case "room":
-            	
-            	sb.append("Room SET ");
-            	
+
+                sb.append("Room SET ");
+
                 System.out.println("Specify the room you are updaing (Room ID, Hotel ID): ");
                 String roomInfo = scanner.nextLine();
                 String[] roomArray = roomInfo.split(",");
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Booking.GetFields());
+                        + Booking.GetFields());
                 String roomCols = scanner.nextLine();
                 String[] roomColsArray = roomCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String roomVals = scanner.nextLine();
                 String[] roomValsArray = roomVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : roomColsArray) {
-                	
-                	sb.append(col.strip() + " = " + roomValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + roomValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
-                sb.append("WHERE " + "roomId = " + roomArray[0].strip() + " AND hotelId = " +  roomArray[1].strip());             
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+                sb.append("WHERE " + "roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
 
             case "amenity":
-            	
-            	sb.append("Amenity SET ");
-            	
+
+                sb.append("Amenity SET ");
+
                 System.out.println("Specify the amenity you are updating (Amenity ID, Hotel ID): ");
                 String amenityInfo = scanner.nextLine();
                 String[] amenityArray = amenityInfo.split(",");
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Booking.GetFields());
+                        + Booking.GetFields());
                 String amenityCols = scanner.nextLine();
                 String[] amenityColsArray = amenityCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String amenityVals = scanner.nextLine();
                 String[] amenityValsArray = amenityVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : amenityColsArray) {
-                	
-                	sb.append(col.strip() + " = " + amenityValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + amenityValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
-                sb.append("WHERE " + "amenityId = " + amenityArray[0].strip() + " AND hotelId = " +  amenityArray[1].strip());   
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+                sb.append("WHERE " + "amenityId = " + amenityArray[0].strip() + " AND hotelId = "
+                        + amenityArray[1].strip());
 
             case "rating":
-            	
-            	sb.append("Rating SET ");
-            	
+
+                sb.append("Rating SET ");
+
                 System.out.println("Specify the rating you are updating (Rating ID): ");
                 String ratingId = scanner.nextLine();
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Client.GetFields());
+                        + Client.GetFields());
                 String ratingCols = scanner.nextLine();
                 String[] ratingColsArray = ratingCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String ratingVals = scanner.nextLine();
                 String[] ratingValsArray = ratingVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : ratingColsArray) {
-                	
-                	sb.append(col.strip() + " = " + ratingValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + ratingValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
                 sb.append("WHERE " + "ratingId = " + ratingId);
 
             case "employee":
-            	
-            	sb.append("Employee SET ");
-            	
+
+                sb.append("Employee SET ");
+
                 System.out.println("Specify the employee you are updating (Employee ID, Hotel ID): ");
                 String employeeInfo = scanner.nextLine();
                 String[] employeeArray = employeeInfo.split(",");
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Booking.GetFields());
+                        + Booking.GetFields());
                 String employeeCols = scanner.nextLine();
                 String[] employeeColsArray = employeeCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String employeeVals = scanner.nextLine();
                 String[] employeeValsArray = employeeVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : employeeColsArray) {
-                	
-                	sb.append(col.strip() + " = " + employeeValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + employeeValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
-                sb.append("WHERE " + "employeeId = " + employeeArray[0].strip() + " AND hotelId = " +  employeeArray[1].strip());
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+                sb.append("WHERE " + "employeeId = " + employeeArray[0].strip() + " AND hotelId = "
+                        + employeeArray[1].strip());
 
             case "shift":
-            	
-            	sb.append("Shift SET ");
-            	
-                System.out.println("Specify the shift you are updating (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
+
+                sb.append("Shift SET ");
+
+                System.out.println(
+                        "Specify the shift you are updating (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
                 String shiftInfo = scanner.nextLine();
                 String[] shiftArray = shiftInfo.split(",");
-                
+
                 System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                		+ Booking.GetFields());
+                        + Booking.GetFields());
                 String shiftCols = scanner.nextLine();
                 String[] shiftColsArray = shiftCols.split(",");
-                
+
                 System.out.println("Give the data for each column in a comma seperated list:");
                 String shiftVals = scanner.nextLine();
                 String[] shiftValsArray = shiftVals.split(",");
-                
+
                 // loop of columnN = valueN, ...
                 for (String col : shiftColsArray) {
-                	
-                	sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
-                	
-                	i++;
+
+                    sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
+
+                    i++;
                 }
-                
-                sb.deleteCharAt(sb.length()-2);		//remove comma from last item
-                sb.append("WHERE " + "employeeId = " + shiftArray[0].strip() + " AND hotelId = " +  shiftArray[1].strip()
-                		+ " AND dateStart = " +  shiftArray[2].strip());
-            	
+
+                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+                sb.append("WHERE " + "employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip()
+                        + " AND dateStart = " + shiftArray[2].strip());
+
         }
 
         scanner.close();
@@ -640,9 +579,6 @@ public class Prog4 {
         return sqlCmd.toString();
     }
 
-   
-    
-    
     // ----------------------------------- EVERYTHING BELOW IS FOR THE QUERIES
     // ----------------------------------- //
 
@@ -719,7 +655,6 @@ public class Prog4 {
                     query = String.format(Queries.query4, date1, date2);
                     break;
                 case 5:
-                    // TODO: Insert params into the prepped query
                     query = Queries.query5;
                     System.out.println("Enter hotel id: ");
                     String hotel_id = r.readLine();
@@ -730,15 +665,12 @@ public class Prog4 {
                     query = String.format(Queries.query5, hotel_id, date1, date2);
                     break;
                 case 6:
-                    // TODO: insert record (any type)
                     query = RecordInsertion();
                     break;
                 case 7:
-                    // TODO: delete record (any type)
                     query = RecordDeletion();
                     break;
                 case 8:
-                    // TODO: update record (any type)
                     query = RecordUpdate();
                     break;
                 default:
@@ -763,31 +695,30 @@ public class Prog4 {
                 rowsChanged = stmt.executeUpdate(query);
             }
 
-            parseQuery1(answer);
             switch (queryNum) {
                 case 1:
-                    parseQuery1(answer);
+                    parseQuery1(answer, query);
                     break;
                 case 2:
-                    parseQuery2(answer);
+                    parseQuery2(answer, query);
                     break;
                 case 3:
-                    parseQuery3(answer);
+                    parseQuery3(answer, query);
                     break;
                 case 4:
-                    parseQuery4(answer);
+                    parseQuery4(answer, query);
                     break;
                 case 5:
-                    parseQuery5(answer);
+                    parseQuery5(answer, query);
                     break;
                 case 6:
-                    parseQuery6(rowsChanged);
+                    parseQuery6(rowsChanged, query);
                     break;
                 case 7:
-                    parseQuery7(rowsChanged);
+                    parseQuery7(rowsChanged, query);
                     break;
                 case 8:
-                    parseQuery8(rowsChanged);
+                    parseQuery8(rowsChanged, query);
                     break;
                 default:
                     System.err.println("Invalid query number");
@@ -811,11 +742,11 @@ public class Prog4 {
 
     }
 
-    public void parseQuery1(ResultSet answer) {
+    public void parseQuery1(ResultSet answer, String query) {
         try {
             if (answer != null) {
 
-                System.out.println("\nThe results of the query 1 are:\n");
+                System.out.println("\nThe results of the query [" + query + "] are:\n");
 
                 // Getting and printing column names
                 ResultSetMetaData answermetadata = answer.getMetaData();
@@ -842,11 +773,11 @@ public class Prog4 {
         }
     }
 
-    public void parseQuery2(ResultSet answer) {
+    public void parseQuery2(ResultSet answer, String query) {
         try {
             if (answer != null) {
 
-                System.out.println("\nThe results of the query 2 are:\n");
+                System.out.println("\nThe results of the query [" + query + "] are:\n");
 
                 // Getting and printing column names
                 ResultSetMetaData answermetadata = answer.getMetaData();
@@ -874,11 +805,11 @@ public class Prog4 {
         }
     }
 
-    public void parseQuery3(ResultSet answer) {
+    public void parseQuery3(ResultSet answer, String query) {
         try {
             if (answer != null) {
 
-                System.out.println("\nThe results of the query 3 are:\n");
+                System.out.println("\nThe results of the query [" + query + "] are:\n");
 
                 // Getting and printing column names
                 ResultSetMetaData answermetadata = answer.getMetaData();
@@ -888,13 +819,9 @@ public class Prog4 {
                 System.out.println();
 
                 // iterating through rows in answer
-                // TODO: Output for this will be extra funky
-                // TODO: replace template val printout
                 while (answer.next()) {
-                    System.out.println(answer.getString("cost")); // TODO: replace template
-                    System.out.println(answer.getString("amenityName") + "\t" + answer.getString("avg_rating")); // TODO:
-                                                                                                                 // replace
-                                                                                                                 // template
+                    System.out.println(answer.getString("he.firstName") + "\t" + answer.getString("he.lastName")
+                            + "\t" + answer.getString("hs.dateStart") + "\t" + answer.getString("hs.dateEnd"));
                 }
             }
             System.out.println();
@@ -910,11 +837,11 @@ public class Prog4 {
         }
     }
 
-    public void parseQuery4(ResultSet answer) {
+    public void parseQuery4(ResultSet answer, String query) {
         try {
             if (answer != null) {
 
-                System.out.println("\nThe results of the query 4 are:\n");
+                System.out.println("\nThe results of the query [" + query + "] are:\n");
 
                 // Getting and printing column names
                 ResultSetMetaData answermetadata = answer.getMetaData();
@@ -942,11 +869,11 @@ public class Prog4 {
         }
     }
 
-    public void parseQuery5(ResultSet answer) {
+    public void parseQuery5(ResultSet answer, String query) {
         try {
             if (answer != null) {
 
-                System.out.println("\nThe results of the query 4 are:\n");
+                System.out.println("\nThe results of the query [" + query + "] are:\n");
 
                 // Getting and printing column names
                 ResultSetMetaData answermetadata = answer.getMetaData();
@@ -957,7 +884,9 @@ public class Prog4 {
 
                 // iterating through rows in answer
                 while (answer.next()) {
-                    System.out.println(answer.getString("*** IMPLEMENENT ***")); // TODO: replace template
+                    System.out.println(answer.getString("roomRevenue") + "\t" + answer.getString("hotelId")
+                            + "\t" + answer.getString("name") + "\t" + answer.getString("roomRevenue") +
+                            "\t" + answer.getString("amenityRevenue"));
                 }
             }
             System.out.println();
@@ -973,18 +902,18 @@ public class Prog4 {
         }
     }
 
-    public void parseQuery6(int rowsChanged) {
-        System.out.println("Query Comeplete --- Rows Inserted: " + rowsChanged);
+    public void parseQuery6(int rowsChanged, String query) {
+        System.out.println("\nThe query [" + query + "] inserted " + rowsChanged + ": rows\n");
         // TODO: More detail about which table it was added to???
     }
 
-    public void parseQuery7(int rowsChanged) {
-        System.out.println("Query Comeplete --- Rows Deleted: " + rowsChanged);
+    public void parseQuery7(int rowsChanged, String query) {
+        System.out.println("\nThe query [" + query + "] deleted " + rowsChanged + ": rows\n");
         // TODO: More detail about which table it was added to???
     }
 
-    public void parseQuery8(int rowsChanged) {
-        System.out.println("Query Comeplete --- Rows Updated: " + rowsChanged);
+    public void parseQuery8(int rowsChanged, String query) {
+        System.out.println("\nThe query [" + query + "] updated " + rowsChanged + ": rows\n");
         // TODO: More detail about which table it was added to???
     }
 
