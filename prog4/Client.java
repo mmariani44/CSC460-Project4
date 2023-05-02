@@ -81,6 +81,7 @@ public class Client {
 
 		// Set default values for the other fields
 		this.clientId = UUID.randomUUID().toString();
+		System.out.println("Client ID: " + this.clientId);
 		this.isStudent = 0;
 		this.membershipType = "none";
 		this.membershipDiscount = 0;

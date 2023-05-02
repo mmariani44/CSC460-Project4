@@ -70,6 +70,7 @@ public class Amenity {
 	*-------------------------------------------------------------------*/
 	public Amenity(String hotelId, String amenityName, float price) {
 		this.amenityId = UUID.randomUUID().toString();
+		System.out.println("AmenityId ID: " + this.amenityId);
 		this.hotelId = hotelId;
 		this.amenityName = amenityName;
 		this.price = price;

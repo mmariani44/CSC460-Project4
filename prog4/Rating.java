@@ -69,6 +69,7 @@ public class Rating {
 	*-------------------------------------------------------------------*/
 	public Rating(int rating, String comments, String amenityId) {
 		this.ratingId = UUID.randomUUID().toString();
+		System.out.println("Rating ID: " + this.ratingId);
 		this.rating = rating;
 		this.comments = comments;
 		this.amenityId = amenityId;

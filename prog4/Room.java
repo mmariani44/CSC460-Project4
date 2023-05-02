@@ -70,6 +70,7 @@ public class Room {
 	*-------------------------------------------------------------------*/
 	public Room(String hotelId, float roomRate) {
 		this.roomId = UUID.randomUUID().toString();
+		System.out.println("Room ID: " + this.roomId);
 		this.hotelId = hotelId;
 		this.amenitiesTotal = 0;
 		this.roomRate = roomRate;

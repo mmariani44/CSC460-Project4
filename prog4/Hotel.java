@@ -62,6 +62,7 @@ public class Hotel {
 	*-------------------------------------------------------------------*/
 	public Hotel(String name) {
 		this.hotelId = UUID.randomUUID().toString();
+		System.out.println("Hotel ID: " + this.hotelId);
 		this.name = name;
 	}
 
