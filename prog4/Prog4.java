@@ -18,7 +18,8 @@ public class Prog4 {
     }
 
     public static void main(String[] args) {
-        Prog4 prog4 = new Prog4(args[0], args[1]);
+        //Prog4 prog4 = new Prog4(args[0], args[1]);
+        Prog4 prog4 = new Prog4("a", "b");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String input = "";
@@ -39,7 +40,7 @@ public class Prog4 {
                 System.err.println("Error reading input");
                 e.printStackTrace();
             }
-            if (input == "q") {
+            if (input.equals("q") || input.equals("Q")) {
                 break;
             }
             int queryNum = Integer.parseInt(input);
