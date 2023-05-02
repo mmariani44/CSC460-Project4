@@ -73,154 +73,163 @@ public class Prog4 {
         String values = "";
 
         // depending on user input, add entry to that table
-        switch (input) {
-            case "client":
+        if (input.toLowerCase().equals("client")) {
+            sqlCmd.append("Client ");
 
-                sqlCmd.append("Client ");
+            System.out.println("Enter client first name:");
+            String firstName = scanner.nextLine().strip().toLowerCase().strip();
+            System.out.println("Enter client last name:");
+            String lastName = scanner.nextLine().strip().toLowerCase().strip();
+            try {
+                Client client = new Client(firstName, lastName);
+                cols = Client.GetFields();
+                values = client.toString();
+            } catch (Exception e) {
+                System.out.println("Error creating entry.");
+            }
+        }
+        else if (input.toLowerCase().equals("booking")) {
+        	
+            sqlCmd.append("Booking ");
 
-                System.out.println("Enter client first name:");
-                String firstName = scanner.nextLine().strip().toLowerCase().strip();
-                System.out.println("Enter client last name:");
-                String lastName = scanner.nextLine().strip().toLowerCase().strip();
-                try {
-                    Client client = new Client(firstName, lastName);
-                    cols = Client.GetFields();
-                    values = client.toString();
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.");
-                }
+            System.out.println("Enter Booking information in a comma seperated list as such:\n"
+                    + "Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd), End Date(yyyy-mm-dd)");
+            String bookingInfo = scanner.nextLine();
+            String[] bookingArray = bookingInfo.split(",");
+            try {
 
-            case "booking":
+                Booking booking = new Booking(bookingArray[0].strip(), bookingArray[1].strip(),
+                        bookingArray[2].strip(),
+                        Date.valueOf(bookingArray[3].strip()), Date.valueOf(bookingArray[4].strip()));
+                cols = Booking.GetFields();
+                values = booking.toString();
 
-                sqlCmd.append("Booking ");
+            } catch (Exception e) {
+                System.out.println("Error creating entry.");
+            }
+        	
+        }
+        else if (input.toLowerCase().equals("hotel")) {
+        	
+            sqlCmd.append("Hotel ");
 
-                System.out.println("Enter Booking information in a comma seperated list as such:\n"
-                        + "Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd), End Date(yyyy-mm-dd)");
-                String bookingInfo = scanner.nextLine();
-                String[] bookingArray = bookingInfo.split(",");
-                try {
+            System.out.println("Enter Hotel name");
+            String hotelName = scanner.nextLine();
+            try {
 
-                    Booking booking = new Booking(bookingArray[0].strip(), bookingArray[1].strip(),
-                            bookingArray[2].strip(),
-                            Date.valueOf(bookingArray[3].strip()), Date.valueOf(bookingArray[4].strip()));
-                    cols = Booking.GetFields();
-                    values = booking.toString();
+                Hotel hotel = new Hotel(hotelName);
+                cols = Hotel.GetFields();
+                values = hotel.toString();
 
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.");
-                }
+            } catch (Exception e) {
+                System.out.println("Error creating entry.");
+            }
+        	
+        }
+        
+        else if (input.toLowerCase().equals("room")) {
+        	
+            sqlCmd.append("Room ");
 
-            case "hotel":
+            System.out.println("Enter Room information in a comma seperated list as such:\n"
+                    + "Hotel ID, Room Rate");
+            String roomInfo = scanner.nextLine();
+            String[] roomArray = roomInfo.split(",");
+            try {
 
-                sqlCmd.append("Hotel ");
+                Room room = new Room(roomArray[0].strip(), Float.parseFloat(roomArray[1].strip()));
+                cols = Room.GetFields();
+                values = room.toString();
 
-                System.out.println("Enter Hotel name");
-                String hotelName = scanner.nextLine();
-                try {
+            } catch (Exception e) {
+                System.out.println("Error creating entry.");
+            }
+            
+        }
+        
+        else if (input.toLowerCase().equals("room")) {
+        	
+            sqlCmd.append("Amenity ");
 
-                    Hotel hotel = new Hotel(hotelName);
-                    cols = Hotel.GetFields();
-                    values = hotel.toString();
+            System.out.println("Enter Amenity information in a comma seperated list as such:\n"
+                    + "Hotel ID, Amenity Name, Price");
+            String amenityInfo = scanner.nextLine();
+            String[] amenityArray = amenityInfo.split(",");
+            try {
 
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.");
-                }
+                Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip(),
+                        Float.parseFloat(amenityArray[2].strip()));
+                cols = Amenity.GetFields();
+                values = amenity.toString();
 
-            case "room":
+            } catch (Exception e) {
+                System.out.println("Error creating entry.");
+            }
+            
+        }
+        
+        else if (input.toLowerCase().equals("rating")) {
+        	
+            sqlCmd.append("Rating ");
 
-                sqlCmd.append("Room ");
+            System.out.println("Enter Rating information in a comma seperated list as such:\n"
+                    + "Rating, Comments, Amenity ID");
+            String ratingInfo = scanner.nextLine();
+            String[] ratingArray = ratingInfo.split(",");
+            try {
 
-                System.out.println("Enter Room information in a comma seperated list as such:\n"
-                        + "Hotel ID, Room Rate");
-                String roomInfo = scanner.nextLine();
-                String[] roomArray = roomInfo.split(",");
-                try {
+                Rating rating = new Rating(Integer.parseInt(ratingArray[0].strip()), ratingArray[1].strip(),
+                        ratingArray[2].strip());
+                cols = rating.GetFields();
+                values = rating.toString();
 
-                    Room room = new Room(roomArray[0].strip(), Float.parseFloat(roomArray[1].strip()));
-                    cols = Room.GetFields();
-                    values = room.toString();
+            } catch (Exception e) {
+                System.out.println("Error creating entry.\n");
+            }
+            
+        }
+        
+        else if (input.toLowerCase().equals("employee")) {
+        	
+            sqlCmd.append("Employee ");
 
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.");
-                }
+            System.out.println("Enter Employee information in a comma seperated list as such:\n"
+                    + "Hotel ID, First Name, Last Name, Duty, Wage");
+            String employeeInfo = scanner.nextLine();
+            String[] employeeArray = employeeInfo.split(",");
+            try {
 
-            case "amenity":
+                Employee employee = new Employee(employeeArray[0].strip(), employeeArray[1].strip(),
+                        employeeArray[2].strip(),
+                        employeeArray[3].strip(), Float.parseFloat(employeeArray[4].strip()));
+                cols = Employee.GetFields();
+                values = employee.toString();
 
-                sqlCmd.append("Amenity ");
+            } catch (Exception e) {
+                System.out.println("Error creating entry.\n");
+            }
+        	
+        }
+        
+        else if (input.toLowerCase().equals("shift")) {
+        	
+            sqlCmd.append("Shift ");
 
-                System.out.println("Enter Amenity information in a comma seperated list as such:\n"
-                        + "Hotel ID, Amenity Name, Price");
-                String amenityInfo = scanner.nextLine();
-                String[] amenityArray = amenityInfo.split(",");
-                try {
+            System.out.println("Enter Shift information in a comma seperated list as such:\n"
+                    + "Employee ID, Start Date/Time (yyyy-mm-dd hh:mm:ss), End Date/Time (yyyy-mm-dd hh:mm:ss)");
+            String shiftInfo = scanner.nextLine();
+            String[] shiftArray = shiftInfo.split(",");
+            try {
 
-                    Amenity amenity = new Amenity(amenityArray[0].strip(), amenityArray[1].strip(),
-                            Float.parseFloat(amenityArray[2].strip()));
-                    cols = Amenity.GetFields();
-                    values = amenity.toString();
+                Shift shift = new Shift(shiftArray[0].strip(), Timestamp.valueOf(shiftArray[1].strip()),
+                        Timestamp.valueOf(shiftArray[2].strip()));
+                cols = shift.GetFields();
+                values = shift.toString();
 
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.");
-                }
-
-            case "rating":
-
-                sqlCmd.append("Rating ");
-
-                System.out.println("Enter Rating information in a comma seperated list as such:\n"
-                        + "Rating, Comments, Amenity ID");
-                String ratingInfo = scanner.nextLine();
-                String[] ratingArray = ratingInfo.split(",");
-                try {
-
-                    Rating rating = new Rating(Integer.parseInt(ratingArray[0].strip()), ratingArray[1].strip(),
-                            ratingArray[2].strip());
-                    cols = rating.GetFields();
-                    values = rating.toString();
-
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.\n");
-                }
-
-            case "employee":
-
-                sqlCmd.append("Employee ");
-
-                System.out.println("Enter Employee information in a comma seperated list as such:\n"
-                        + "Hotel ID, First Name, Last Name, Duty, Wage");
-                String employeeInfo = scanner.nextLine();
-                String[] employeeArray = employeeInfo.split(",");
-                try {
-
-                    Employee employee = new Employee(employeeArray[0].strip(), employeeArray[1].strip(),
-                            employeeArray[2].strip(),
-                            employeeArray[3].strip(), Float.parseFloat(employeeArray[4].strip()));
-                    cols = Employee.GetFields();
-                    values = employee.toString();
-
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.\n");
-                }
-
-            case "shift":
-
-                sqlCmd.append("Shift ");
-
-                System.out.println("Enter Shift information in a comma seperated list as such:\n"
-                        + "Employee ID, Start Date/Time (yyyy-mm-dd hh:mm:ss), End Date/Time (yyyy-mm-dd hh:mm:ss)");
-                String shiftInfo = scanner.nextLine();
-                String[] shiftArray = shiftInfo.split(",");
-                try {
-
-                    Shift shift = new Shift(shiftArray[0].strip(), Timestamp.valueOf(shiftArray[1].strip()),
-                            Timestamp.valueOf(shiftArray[2].strip()));
-                    cols = shift.GetFields();
-                    values = shift.toString();
-
-                } catch (Exception e) {
-                    System.out.println("Error creating entry.\n");
-                }
-
+            } catch (Exception e) {
+                System.out.println("Error creating entry.\n");
+            }
+        	
         }
 
         scanner.close();
@@ -242,83 +251,83 @@ public class Prog4 {
         StringBuilder sqlCmd = new StringBuilder();
         sqlCmd.append("DELETE FROM Hotel");
 
-        switch (input) {
-            case "client":
-                sqlCmd.append("Client WHERE ");
+        
+        
+        if (input.toLowerCase().equals("client")) {
+            sqlCmd.append("Client WHERE ");
 
-                System.out.println("Specify the client you are deleting (Client ID): ");
-                String clientId = scanner.nextLine();
+            System.out.println("Specify the client you are deleting (Client ID): ");
+            String clientId = scanner.nextLine();
 
-                sqlCmd.append("clientId = " + clientId);
+            sqlCmd.append("clientId = " + clientId);
+        }
+        else if (input.toLowerCase().equals("booking")) {
+            sqlCmd.append("Booking WHERE ");
 
-            case "booking":
-                sqlCmd.append("Booking WHERE ");
+            // prompt user
+            System.out.println(
+                    "Specify the booking you are deleting (Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd)): ");
+            String bookingInfo = scanner.nextLine();
+            String[] bookingArray = bookingInfo.split(",");
 
-                // prompt user
-                System.out.println(
-                        "Specify the booking you are deleting (Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd)): ");
-                String bookingInfo = scanner.nextLine();
-                String[] bookingArray = bookingInfo.split(",");
+            // build sql command
+            sqlCmd.append("clientId = " + bookingArray[0].strip() + " AND hotelId = " + bookingArray[1].strip()
+                    + " AND "
+                    + "roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[3].strip());
+        }
+        else if (input.toLowerCase().equals("hotel")) {
+            sqlCmd.append("Hotel WHERE ");
 
-                // build sql command
-                sqlCmd.append("clientId = " + bookingArray[0].strip() + " AND hotelId = " + bookingArray[1].strip()
-                        + " AND "
-                        + "roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[3].strip());
+            System.out.println("Specify the hotel you are deleting (Hotel ID): ");
+            String hotelId = scanner.nextLine();
 
-            case "hotel":
-                sqlCmd.append("Hotel WHERE ");
+            sqlCmd.append("hotelId = " + hotelId);
+        }
+        else if (input.toLowerCase().equals("room")) {
+            sqlCmd.append("Room WHERE ");
 
-                System.out.println("Specify the hotel you are deleting (Hotel ID): ");
-                String hotelId = scanner.nextLine();
+            System.out.println("Specify the room you are deleting (Room ID, Hotel ID): ");
+            String roomInfo = scanner.nextLine();
+            String[] roomArray = roomInfo.split(",");
 
-                sqlCmd.append("hotelId = " + hotelId);
+            sqlCmd.append("roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
+        }
+        else if (input.toLowerCase().equals("amenity")) {
+            sqlCmd.append("Amenity WHERE ");
 
-            case "room":
-                sqlCmd.append("Room WHERE ");
+            System.out.println("Specify the amenity you are deleting (Amenity ID, Hotel ID): ");
+            String amenityInfo = scanner.nextLine();
+            String[] amenityArray = amenityInfo.split(",");
 
-                System.out.println("Specify the room you are deleting (Room ID, Hotel ID): ");
-                String roomInfo = scanner.nextLine();
-                String[] roomArray = roomInfo.split(",");
+            sqlCmd.append("amenityId = " + amenityArray[0].strip() + " AND hotelId = " + amenityArray[1].strip());
+        }
+        else if (input.toLowerCase().equals("rating")) {
+            sqlCmd.append("Rating WHERE ");
 
-                sqlCmd.append("roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
+            System.out.println("Specify the rating you are deleting (Rating ID): ");
+            String ratingId = scanner.nextLine();
 
-            case "amenity":
-                sqlCmd.append("Amenity WHERE ");
+            sqlCmd.append("ratingId = " + ratingId);
+        }
+        else if (input.toLowerCase().equals("employee")) {
+            sqlCmd.append("Employee WHERE ");
 
-                System.out.println("Specify the amenity you are deleting (Amenity ID, Hotel ID): ");
-                String amenityInfo = scanner.nextLine();
-                String[] amenityArray = amenityInfo.split(",");
+            System.out.println("Specify the employee you are deleting (Employee ID, Hotel ID): ");
+            String employeeInfo = scanner.nextLine();
+            String[] employeeArray = employeeInfo.split(",");
 
-                sqlCmd.append("amenityId = " + amenityArray[0].strip() + " AND hotelId = " + amenityArray[1].strip());
+            sqlCmd.append(
+                    "employeeId = " + employeeArray[0].strip() + " AND hotelId = " + employeeArray[1].strip());
+        }
+        else if (input.toLowerCase().equals("shift")) {
+            sqlCmd.append("Shift WHERE ");
 
-            case "rating":
-                sqlCmd.append("Rating WHERE ");
+            System.out.println(
+                    "Specify the shift you are deleting (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
+            String shiftInfo = scanner.nextLine();
+            String[] shiftArray = shiftInfo.split(",");
 
-                System.out.println("Specify the rating you are deleting (Rating ID): ");
-                String ratingId = scanner.nextLine();
-
-                sqlCmd.append("ratingId = " + ratingId);
-
-            case "employee":
-                sqlCmd.append("Employee WHERE ");
-
-                System.out.println("Specify the employee you are deleting (Employee ID, Hotel ID): ");
-                String employeeInfo = scanner.nextLine();
-                String[] employeeArray = employeeInfo.split(",");
-
-                sqlCmd.append(
-                        "employeeId = " + employeeArray[0].strip() + " AND hotelId = " + employeeArray[1].strip());
-
-            case "shift":
-                sqlCmd.append("Shift WHERE ");
-
-                System.out.println(
-                        "Specify the shift you are deleting (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
-                String shiftInfo = scanner.nextLine();
-                String[] shiftArray = shiftInfo.split(",");
-
-                sqlCmd.append("employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip());
-
+            sqlCmd.append("employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip());
         }
 
         scanner.close();
@@ -341,234 +350,227 @@ public class Prog4 {
         StringBuilder sqlCmd = new StringBuilder();
 
         int i = 0;
-        switch (input) {
-            case "client":
-                sb.append("Client SET ");
+        
+        
+        if (input.toLowerCase().equals("client")) {
+            sb.append("Client SET ");
 
-                System.out.println("Specify the client you are updating (Client ID): ");
-                String clientId = scanner.nextLine();
+            System.out.println("Specify the client you are updating (Client ID): ");
+            String clientId = scanner.nextLine();
 
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Client.GetFields());
-                String clientCols = scanner.nextLine();
-                String[] clientColsArray = clientCols.split(",");
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Client.GetFields());
+            String clientCols = scanner.nextLine();
+            String[] clientColsArray = clientCols.split(",");
 
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String clientVals = scanner.nextLine();
-                String[] clientValsArray = clientVals.split(",");
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String clientVals = scanner.nextLine();
+            String[] clientValsArray = clientVals.split(",");
 
-                // loop of columnN = valueN, ...
-                for (String col : clientColsArray) {
+            // loop of columnN = valueN, ...
+            for (String col : clientColsArray) {
 
-                    sb.append(col.strip() + " = " + clientValsArray[i].strip() + ", ");
+                sb.append(col.strip() + " = " + clientValsArray[i].strip() + ", ");
+
+                i++;
+            }
 
-                    i++;
-                }
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "clientId = " + clientId);
+        }
+        else if (input.toLowerCase().equals("booking")) {
+            sb.append("Booking SET ");
 
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "clientId = " + clientId);
+            System.out.println(
+                    "Specify the booking you are updating (Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd)): ");
+            String bookingInfo = scanner.nextLine();
+            String[] bookingArray = bookingInfo.split(",");
 
-            case "booking":
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Booking.GetFields());
+            String bookingCols = scanner.nextLine();
+            String[] bookingColsArray = bookingCols.split(",");
 
-                sb.append("Booking SET ");
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String bookingVals = scanner.nextLine();
+            String[] bookingValsArray = bookingVals.split(",");
 
-                System.out.println(
-                        "Specify the booking you are updating (Client ID, Hotel ID, Room ID, Start Date (yyyy-mm-dd)): ");
-                String bookingInfo = scanner.nextLine();
-                String[] bookingArray = bookingInfo.split(",");
+            // loop of columnN = valueN, ...
+            for (String col : bookingColsArray) {
 
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Booking.GetFields());
-                String bookingCols = scanner.nextLine();
-                String[] bookingColsArray = bookingCols.split(",");
+                sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
+
+                i++;
+            }
 
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String bookingVals = scanner.nextLine();
-                String[] bookingValsArray = bookingVals.split(",");
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "clientId = " + bookingArray[0].strip() + " AND hotelId = "
+                    + bookingArray[1].strip()
+                    + " AND roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[0].strip());
+        }
+        else if (input.toLowerCase().equals("hotel")) {
+            sb.append("Hotel SET ");
 
-                // loop of columnN = valueN, ...
-                for (String col : bookingColsArray) {
+            System.out.println("Specify the hotel you are updating (Hotel ID): ");
+            String hotelId = scanner.nextLine();
 
-                    sb.append(col.strip() + " = " + bookingValsArray[i].strip() + ", ");
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Hotel.GetFields());
+            String hotelCols = scanner.nextLine();
+            String[] hotelColsArray = hotelCols.split(",");
 
-                    i++;
-                }
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String hotelVals = scanner.nextLine();
+            String[] hotelValsArray = hotelVals.split(",");
 
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "clientId = " + bookingArray[0].strip() + " AND hotelId = "
-                        + bookingArray[1].strip()
-                        + " AND roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[0].strip());
+            // loop of columnN = valueN, ...
+            for (String col : hotelColsArray) {
 
-            case "hotel":
+                sb.append(col.strip() + " = " + hotelValsArray[i].strip() + ", ");
 
-                sb.append("Hotel SET ");
+                i++;
+            }
 
-                System.out.println("Specify the hotel you are updating (Hotel ID): ");
-                String hotelId = scanner.nextLine();
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "hotelId = " + hotelId);
+        }
+        else if (input.toLowerCase().equals("room")) {
+            sb.append("Room SET ");
 
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Hotel.GetFields());
-                String hotelCols = scanner.nextLine();
-                String[] hotelColsArray = hotelCols.split(",");
+            System.out.println("Specify the room you are updaing (Room ID, Hotel ID): ");
+            String roomInfo = scanner.nextLine();
+            String[] roomArray = roomInfo.split(",");
 
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String hotelVals = scanner.nextLine();
-                String[] hotelValsArray = hotelVals.split(",");
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Booking.GetFields());
+            String roomCols = scanner.nextLine();
+            String[] roomColsArray = roomCols.split(",");
 
-                // loop of columnN = valueN, ...
-                for (String col : hotelColsArray) {
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String roomVals = scanner.nextLine();
+            String[] roomValsArray = roomVals.split(",");
 
-                    sb.append(col.strip() + " = " + hotelValsArray[i].strip() + ", ");
+            // loop of columnN = valueN, ...
+            for (String col : roomColsArray) {
 
-                    i++;
-                }
+                sb.append(col.strip() + " = " + roomValsArray[i].strip() + ", ");
 
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "hotelId = " + hotelId);
+                i++;
+            }
 
-            case "room":
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
+        }
+        else if (input.toLowerCase().equals("amenity")) {
+            sb.append("Amenity SET ");
 
-                sb.append("Room SET ");
+            System.out.println("Specify the amenity you are updating (Amenity ID, Hotel ID): ");
+            String amenityInfo = scanner.nextLine();
+            String[] amenityArray = amenityInfo.split(",");
 
-                System.out.println("Specify the room you are updaing (Room ID, Hotel ID): ");
-                String roomInfo = scanner.nextLine();
-                String[] roomArray = roomInfo.split(",");
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Booking.GetFields());
+            String amenityCols = scanner.nextLine();
+            String[] amenityColsArray = amenityCols.split(",");
 
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Booking.GetFields());
-                String roomCols = scanner.nextLine();
-                String[] roomColsArray = roomCols.split(",");
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String amenityVals = scanner.nextLine();
+            String[] amenityValsArray = amenityVals.split(",");
 
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String roomVals = scanner.nextLine();
-                String[] roomValsArray = roomVals.split(",");
+            // loop of columnN = valueN, ...
+            for (String col : amenityColsArray) {
 
-                // loop of columnN = valueN, ...
-                for (String col : roomColsArray) {
+                sb.append(col.strip() + " = " + amenityValsArray[i].strip() + ", ");
 
-                    sb.append(col.strip() + " = " + roomValsArray[i].strip() + ", ");
+                i++;
+            }
 
-                    i++;
-                }
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "amenityId = " + amenityArray[0].strip() + " AND hotelId = "
+                    + amenityArray[1].strip());
+        }
+        else if (input.toLowerCase().equals("rating")) {
+            sb.append("Rating SET ");
 
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
+            System.out.println("Specify the rating you are updating (Rating ID): ");
+            String ratingId = scanner.nextLine();
 
-            case "amenity":
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Client.GetFields());
+            String ratingCols = scanner.nextLine();
+            String[] ratingColsArray = ratingCols.split(",");
 
-                sb.append("Amenity SET ");
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String ratingVals = scanner.nextLine();
+            String[] ratingValsArray = ratingVals.split(",");
 
-                System.out.println("Specify the amenity you are updating (Amenity ID, Hotel ID): ");
-                String amenityInfo = scanner.nextLine();
-                String[] amenityArray = amenityInfo.split(",");
+            // loop of columnN = valueN, ...
+            for (String col : ratingColsArray) {
 
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Booking.GetFields());
-                String amenityCols = scanner.nextLine();
-                String[] amenityColsArray = amenityCols.split(",");
+                sb.append(col.strip() + " = " + ratingValsArray[i].strip() + ", ");
 
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String amenityVals = scanner.nextLine();
-                String[] amenityValsArray = amenityVals.split(",");
+                i++;
+            }
 
-                // loop of columnN = valueN, ...
-                for (String col : amenityColsArray) {
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "ratingId = " + ratingId);
+        }
+        else if (input.toLowerCase().equals("employee")) {
+            sb.append("Employee SET ");
 
-                    sb.append(col.strip() + " = " + amenityValsArray[i].strip() + ", ");
+            System.out.println("Specify the employee you are updating (Employee ID, Hotel ID): ");
+            String employeeInfo = scanner.nextLine();
+            String[] employeeArray = employeeInfo.split(",");
 
-                    i++;
-                }
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Booking.GetFields());
+            String employeeCols = scanner.nextLine();
+            String[] employeeColsArray = employeeCols.split(",");
 
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "amenityId = " + amenityArray[0].strip() + " AND hotelId = "
-                        + amenityArray[1].strip());
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String employeeVals = scanner.nextLine();
+            String[] employeeValsArray = employeeVals.split(",");
 
-            case "rating":
+            // loop of columnN = valueN, ...
+            for (String col : employeeColsArray) {
 
-                sb.append("Rating SET ");
+                sb.append(col.strip() + " = " + employeeValsArray[i].strip() + ", ");
 
-                System.out.println("Specify the rating you are updating (Rating ID): ");
-                String ratingId = scanner.nextLine();
+                i++;
+            }
 
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Client.GetFields());
-                String ratingCols = scanner.nextLine();
-                String[] ratingColsArray = ratingCols.split(",");
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "employeeId = " + employeeArray[0].strip() + " AND hotelId = "
+                    + employeeArray[1].strip());
+        }
+        else if (input.toLowerCase().equals("shift")) {
+            sb.append("Shift SET ");
 
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String ratingVals = scanner.nextLine();
-                String[] ratingValsArray = ratingVals.split(",");
+            System.out.println(
+                    "Specify the shift you are updating (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
+            String shiftInfo = scanner.nextLine();
+            String[] shiftArray = shiftInfo.split(",");
 
-                // loop of columnN = valueN, ...
-                for (String col : ratingColsArray) {
+            System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
+                    + Booking.GetFields());
+            String shiftCols = scanner.nextLine();
+            String[] shiftColsArray = shiftCols.split(",");
 
-                    sb.append(col.strip() + " = " + ratingValsArray[i].strip() + ", ");
+            System.out.println("Give the data for each column in a comma seperated list:");
+            String shiftVals = scanner.nextLine();
+            String[] shiftValsArray = shiftVals.split(",");
 
-                    i++;
-                }
+            // loop of columnN = valueN, ...
+            for (String col : shiftColsArray) {
 
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "ratingId = " + ratingId);
+                sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
 
-            case "employee":
+                i++;
+            }
 
-                sb.append("Employee SET ");
-
-                System.out.println("Specify the employee you are updating (Employee ID, Hotel ID): ");
-                String employeeInfo = scanner.nextLine();
-                String[] employeeArray = employeeInfo.split(",");
-
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Booking.GetFields());
-                String employeeCols = scanner.nextLine();
-                String[] employeeColsArray = employeeCols.split(",");
-
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String employeeVals = scanner.nextLine();
-                String[] employeeValsArray = employeeVals.split(",");
-
-                // loop of columnN = valueN, ...
-                for (String col : employeeColsArray) {
-
-                    sb.append(col.strip() + " = " + employeeValsArray[i].strip() + ", ");
-
-                    i++;
-                }
-
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "employeeId = " + employeeArray[0].strip() + " AND hotelId = "
-                        + employeeArray[1].strip());
-
-            case "shift":
-
-                sb.append("Shift SET ");
-
-                System.out.println(
-                        "Specify the shift you are updating (Employee ID, Hotel ID, Start Date (yyyy-mm-dd hh:mm:ss)): ");
-                String shiftInfo = scanner.nextLine();
-                String[] shiftArray = shiftInfo.split(",");
-
-                System.out.println("Specify the columns you are updating in a comma seperated list as such: \n"
-                        + Booking.GetFields());
-                String shiftCols = scanner.nextLine();
-                String[] shiftColsArray = shiftCols.split(",");
-
-                System.out.println("Give the data for each column in a comma seperated list:");
-                String shiftVals = scanner.nextLine();
-                String[] shiftValsArray = shiftVals.split(",");
-
-                // loop of columnN = valueN, ...
-                for (String col : shiftColsArray) {
-
-                    sb.append(col.strip() + " = " + shiftValsArray[i].strip() + ", ");
-
-                    i++;
-                }
-
-                sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-                sb.append("WHERE " + "employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip()
-                        + " AND dateStart = " + shiftArray[2].strip());
-
+            sb.deleteCharAt(sb.length() - 2); // remove comma from last item
+            sb.append("WHERE " + "employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip()
+                    + " AND dateStart = " + shiftArray[2].strip());
         }
 
         scanner.close();
