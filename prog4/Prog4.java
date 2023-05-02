@@ -22,27 +22,30 @@ public class Prog4 {
     public static void main(String[] args) {
         Prog4 prog4 = new Prog4(args[0], args[1]);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-       
         String input = "";
         System.out.println("Select which operation you would like to perform by entering the labeled number:\n"
                 + "(1) Print customer's total bill.\n"
                 + "(2) Print all customers staying at this location.\n"
                 + "(3) Print the schedule of staff for a given week.\n"
                 + "(4) Print the average ratings of amenities within a two day range.\n"
-                + "(5) Print total revenue between two dates.\n"
+                + "(5) TBD\n"
                 + "(6) Insert new record.\n"
                 + "(7) Delete existing record.\n"
                 + "(8) Update existing record.\n"
                 + "Or enter q to quit.");
-		try {
-			input = reader.readLine();
-    		reader.close();
-    		//if (input.equals("q") || input.equals("Q")) {
-    		//    break;
-    		//}
-    		int queryNum = Integer.parseInt(input);
-    		prog4.runQuery(queryNum, null);
-		} catch(Exception e) {}
+        try {
+            input = reader.readLine();
+        } catch (IOException e) {
+            System.err.println("Error reading input");
+            e.printStackTrace();
+        }
+        /*
+        if (input.equals("q") || input.equals("Q")) {
+            break;
+        }
+        */
+        int queryNum = Integer.parseInt(input);
+        prog4.runQuery(queryNum, null);
     }
 
     
