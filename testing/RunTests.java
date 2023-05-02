@@ -77,53 +77,26 @@ public class RunTests {
         System.out.println("Running Test: " + testName);
         String[] path = testName.split("/");
         String queryFolder = path[3];
-        String testNum = path[4];
         Prog4 prog4 = new Prog4(this.username, this.password);
-        String query = "";
-        String input = "";
-        String date = "";
-        String date1 = "";
-        String date2 = "";
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            switch (queryFolder) {
-                case "query1":
-                    System.out.println("Enter clientId: ");
-                    input = r.readLine();
-                    int clientId = Integer.parseInt(input);
-                    query = String.format(Queries.query1, clientId, clientId);
-                    break;
-                case "query2":
-                    System.out.println("Enter date: ");
-                    date = r.readLine();
-                    query = String.format(Queries.query2, date, date);
-                    break;
-                case "query3":
-                    System.out.println("Enter start date: ");
-                    date = r.readLine();
-                    query = String.format(Queries.query3, date, date);
-                    break;
-                case "query4":
-                    System.out.println("Enter start date: ");
-                    date1 = r.readLine();
-                    System.out.println("Enter end date: ");
-                    date2 = r.readLine();
-                    query = String.format(Queries.query4, date1, date2);
-                    break;
-                case "query5":
-                    // TODO: Insert params into the prepped query
-                    query = Queries.query5;
-                    break;
-                default:
-                    System.out.println("Invalid query number");
-                    break;
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading input");
+        switch (queryFolder) {
+            case "query1":
+                Prog4.testEntry(prog4, 1, testName);
+                break;
+            case "query2":
+                Prog4.testEntry(prog4, 2, testName);
+                break;
+            case "query3":
+                Prog4.testEntry(prog4, 3, testName);
+                break;
+            case "query4":
+                Prog4.testEntry(prog4, 4, testName);
+                break;
+            case "query5":
+                Prog4.testEntry(prog4, 5, testName);
+                break;
+            default:
+                System.out.println("Invalid query number");
+                break;
         }
-        // TODO: Load parameters (if not query1)
-        // TODO: call the appropriate query{num} function based on path
-
     }
-
 }

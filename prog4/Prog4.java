@@ -1,6 +1,8 @@
 package prog4;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
@@ -34,8 +36,12 @@ public class Prog4 {
                 break;
             }
             int queryNum = Integer.parseInt(input);
-            prog4.runQuery(queryNum);
+            prog4.runQuery(queryNum, null);
         }
+    }
+
+    public static void testEntry(Prog4 prog, int queryNum, String testFile) {
+        prog.runQuery(queryNum, testFile);
     }
 
     // ---------------------------------- MASON CODE
@@ -508,7 +514,7 @@ public class Prog4 {
     // ----------------------------------- //
 
     // TODO: Query parameters need sanitization?
-    public void runQuery(int queryNum) {
+    public void runQuery(int queryNum, String testFile) {
 
         final String oracleURL = // Magic lectura -> aloe access spell
                 "jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
@@ -543,13 +549,23 @@ public class Prog4 {
         String date = "";
         String date1 = "";
         String date2 = "";
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader r = null;
+        if (testFile == null) {
+            r = new BufferedReader(new InputStreamReader(System.in));
+        } else {
+            try {
+                r = new BufferedReader(new FileReader(testFile));
+            } catch (FileNotFoundException e) {
+                System.err.println("File not found: " + testFile);
+                e.printStackTrace();
+            }
+        }
         try {
             switch (queryNum) {
                 case 1:
                     System.out.println("Enter clientId: ");
                     input = r.readLine();
-                    int clientId = Integer.parseInt(input);
+                    String clientId = input;
                     query = String.format(Queries.query1, clientId, clientId);
                     break;
                 case 2:
@@ -589,7 +605,26 @@ public class Prog4 {
             stmt = dbconn.createStatement();
             answer = stmt.executeQuery(query);
 
-            parseQuery1(answer);
+            switch (queryNum) {
+                case 1:
+                    parseQuery1(answer);
+                    break;
+                case 2:
+                    parseQuery2(answer);
+                    break;
+                case 3:
+                    parseQuery3(answer);
+                    break;
+                case 4:
+                    parseQuery4(answer);
+                    break;
+                case 5:
+                    parseQuery5(answer);
+                    break;
+                default:
+                    System.err.println("Invalid query number");
+                    break;
+            }
 
             // Shutting down DBMS.
             stmt.close();
