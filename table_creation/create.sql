@@ -1,49 +1,48 @@
 CREATE TABLE Hotel.Client (
-	clientId INT,
+	clientId VARCHAR2(50),
 	firstName VARCHAR2(50),
 	lastName VARCHAR2(50),
-	studentDiscount FLOAT,
-	membershipDiscount FLOAT,
-	creditDiscount FLOAT,
+	membershipDiscount BOOL,
+	creditDiscount BOOL,
 	points INT,
 	isStudent BOOL,
-	membershipType VARCHAR2(10),
+	membershipType VARCHAR2(10), // silver, gold 
 	PRIMARY KEY(clientId)
 );
 
 CREATE TABLE Hotel.Booking (
-	clientId INT,
-	hotelId INT,
-	roomId INT,
+	clientId VARCHAR2(50),
+	hotelId VARCHAR2(50),
+	roomId VARCHAR2(50),
 	startDate DATE,
 	endDate DATE,
 	PRIMARY KEY(clientId, hotelId, roomId, startDate)
 );
 
 CREATE TABLE Hotel.Hotel (
-	hotelId INT,
+	hotelId VARCHAR2(50),
 	name VARCHAR2(75),
 	PRIMARY KEY(hotelId)
 );
 
 CREATE TABLE Hotel.Room (
-	roomId INT,
-	hotelId INT,
+	roomId VARCHAR2(50),
+	hotelId VARCHAR2(50),
 	amenitiesTotal MONEY,
 	roomRate MONEY,
 	PRIMARY KEY(roomId, hotelId)
 );
 
 CREATE TABLE Hotel.Amenity (
-	amenityId INT,
-	hotelId INT,
+	amenityId VARCHAR2(50),
+	hotelId VARCHAR2(50),
 	amenityName VARCHAR2(50),
-	ratingId INT,
+	ratingId VARCHAR2(50),
 	PRIMARY KEY(amenityId, hotelId)
 );
 
 CREATE TABLE Hotel.Rating (
-	ratingId INT,
+	ratingId VARCHAR2(50),
 	rating INT,
 	comments VARCHAR2(250),
 	amenityId INT,
@@ -51,8 +50,8 @@ CREATE TABLE Hotel.Rating (
 );
 
 CREATE TABLE Hotel.Employee (
-	employeeId INT,
-	hotelId INT,
+	employeeId VARCHAR2(50),
+	hotelId VARCHAR2(50),
 	firstName VARCHAR2(50),
 	lastName VARCHAR2(50),
 	duty VARCHAR2(50),
