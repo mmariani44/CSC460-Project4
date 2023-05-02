@@ -50,6 +50,7 @@ CREATE TABLE HotelAmenity (
 	amenityId VARCHAR2(50),
 	hotelId VARCHAR2(50),
 	amenityName VARCHAR2(50),
+	price FLOAT,
 	PRIMARY KEY(amenityId, hotelId)
 );
 
