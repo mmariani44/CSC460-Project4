@@ -28,8 +28,8 @@ CREATE TABLE Hotel.Hotel (
 CREATE TABLE Hotel.Room (
 	roomId VARCHAR2(50),
 	hotelId VARCHAR2(50),
-	amenitiesTotal MONEY,
-	roomRate MONEY,
+	amenitiesTotal FLOAT,
+	roomRate FLOAT,
 	PRIMARY KEY(roomId, hotelId)
 );
 
@@ -37,7 +37,6 @@ CREATE TABLE Hotel.Amenity (
 	amenityId VARCHAR2(50),
 	hotelId VARCHAR2(50),
 	amenityName VARCHAR2(50),
-	ratingId VARCHAR2(50),
 	PRIMARY KEY(amenityId, hotelId)
 );
 
@@ -45,7 +44,7 @@ CREATE TABLE Hotel.Rating (
 	ratingId VARCHAR2(50),
 	rating INT,
 	comments VARCHAR2(250),
-	amenityId INT,
+	amenityId VARCHAR2(50),
 	PRIMARY KEY(ratingId)
 );
 
@@ -55,7 +54,7 @@ CREATE TABLE Hotel.Employee (
 	firstName VARCHAR2(50),
 	lastName VARCHAR2(50),
 	duty VARCHAR2(50),
-	wage MONEY,
+	wage FLOAT,
 	PRIMARY KEY(employeeId, hotelId)
 );
 
