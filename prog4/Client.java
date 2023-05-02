@@ -53,11 +53,10 @@ public class Client {
 	public String clientId;
 	public String firstName;
 	public String lastName;
-	public float studentDiscount;
-	public float membershipDiscount;
-	public float creditDiscount;
+	public int membershipDiscount;
+	public int creditDiscount;
 	public int points;
-	public boolean isStudent;
+	public int isStudent;
 	public String membershipType; // none, bronze, silver, gold
 
 	/*---------------------------------------------------------------------
@@ -82,9 +81,8 @@ public class Client {
 
 		// Set default values for the other fields
 		this.clientId = UUID.randomUUID().toString();
-		this.isStudent = false;
+		this.isStudent = 0;
 		this.membershipType = "none";
-		this.studentDiscount = 0;
 		this.membershipDiscount = 0;
 		this.creditDiscount = 0;
 		this.points = 0;
@@ -105,7 +103,7 @@ public class Client {
 	|  Returns: String. Comma-separated string of Client's column names.
 	*-------------------------------------------------------------------*/
 	public static String GetFields() {
-		return "clientId, firstName, lastName, studentDiscount, membershipDiscount, creditDiscount, points, isStudent, membershipType";
+		return "clientId, firstName, lastName, membershipDiscount, creditDiscount, points, isStudent, membershipType";
 	}
 
 	/*---------------------------------------------------------------------
@@ -124,8 +122,8 @@ public class Client {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-		return clientId + "," + firstName + "," + lastName + "," + studentDiscount + "," + membershipDiscount + "," +
-				creditDiscount + "," + points + "," + isStudent + "," + membershipType;
+		return "'" + clientId + "', '" + firstName + "', '" + lastName + "', " + membershipDiscount + ", " +
+				creditDiscount + ", " + points + ", " + isStudent + ", " + "'" + membershipType + "'";
 	}
 
 }

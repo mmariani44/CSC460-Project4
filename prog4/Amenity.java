@@ -49,7 +49,6 @@ public class Amenity {
 	public String amenityId;
 	public String hotelId;
 	public String amenityName;
-	public int ratingId;
 	public float price;
     
 
@@ -93,7 +92,7 @@ public class Amenity {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-		return amenityId + ", " + hotelId + ", " + amenityName + ", " + ratingId;
+		return "'" + amenityId + "', '" + hotelId + "', '" + amenityName + "', ";
 	}
 
 	/*---------------------------------------------------------------------
@@ -111,7 +110,7 @@ public class Amenity {
 	|  Returns: String. Comma-separated string of Amenity's column names.
 	*-------------------------------------------------------------------*/
 	public static String GetFields() {
-		return "amenityId, hotelId, amenityName, ratingId";
+		return "amenityId, hotelId, amenityName";
 	}
 
 }

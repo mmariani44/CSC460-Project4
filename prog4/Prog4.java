@@ -235,7 +235,7 @@ public class Prog4 {
         scanner.close();
 
         sqlCmd.append("(" + cols + ")");
-        sqlCmd.append("VALUES (" + values + ")");
+        sqlCmd.append(" VALUES (" + values + ")");
 
         return sqlCmd.toString();
     }
@@ -574,7 +574,7 @@ public class Prog4 {
         }
 
         scanner.close();
-
+        
         return sqlCmd.toString();
     }
 
@@ -680,14 +680,13 @@ public class Prog4 {
             System.err.println("Error reading input");
 
         }
-
+        
         // Sending the query to the DBMS, and displaying results
         Statement stmt = null;
         ResultSet answer = null;
         int rowsChanged = 0;
         try {
             stmt = dbconn.createStatement();
-            answer = stmt.executeQuery(query);
             if (queryNum < 6) {
                 answer = stmt.executeQuery(query);
             } else {

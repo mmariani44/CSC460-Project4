@@ -101,7 +101,7 @@ public class Employee {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-		return employeeId + ", " + hotelId + ", " + firstName + ", " + lastName + ", " + duty + ", " + wage;
+		return "'" + employeeId + "', '" + hotelId + "', '" + firstName + "', '" + lastName + "', '" + duty + "', " + wage;
 	}
 
 	

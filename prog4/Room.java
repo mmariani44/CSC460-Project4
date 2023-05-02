@@ -91,7 +91,7 @@ public class Room {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-		return roomId + ", " + hotelId + ", " + amenitiesTotal + ", " + roomRate;
+		return "'" + roomId + "', '" + hotelId + "', " + amenitiesTotal + ", " + roomRate;
 	}
 
 	/*---------------------------------------------------------------------
