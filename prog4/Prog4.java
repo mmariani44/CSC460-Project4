@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.Scanner;
 
+import queries.Queries;
+
 public class Prog4 {
     private String username;
     private String password;
@@ -18,8 +20,7 @@ public class Prog4 {
     }
 
     public static void main(String[] args) {
-        //Prog4 prog4 = new Prog4(args[0], args[1]);
-        Prog4 prog4 = new Prog4("a", "b");
+        Prog4 prog4 = new Prog4(args[0], args[1]);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String input = "";
