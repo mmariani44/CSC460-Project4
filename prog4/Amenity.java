@@ -51,18 +51,8 @@ public class Amenity {
 	public String amenityName;
 	public int ratingId;
 	public float price;
-
-    public Amenity(String hotelId, String amenityName, float price) {
-    	this.amenityId = UUID.randomUUID().toString();
-        this.hotelId = hotelId;
-        this.amenityName = amenityName;
-	this.price = price;
-    }
     
-    @Override
-    public String toString() {
-        return amenityId + ", " + hotelId + ", " + amenityName + ", " + ratingId;
-    }
+
 	/*---------------------------------------------------------------------
 	|  Constructor Amenity(String hotelId, String amenityName)
 	|
@@ -87,7 +77,6 @@ public class Amenity {
 	}
 
     
-	public static String GetFields() {
 	/*---------------------------------------------------------------------
 	|  Method toString()
 	|
@@ -121,7 +110,7 @@ public class Amenity {
 	|
 	|  Returns: String. Comma-separated string of Amenity's column names.
 	*-------------------------------------------------------------------*/
-	public String GetFields() {
+	public static String GetFields() {
 		return "amenityId, hotelId, amenityName, ratingId";
 	}
 

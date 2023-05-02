@@ -48,7 +48,6 @@ public class Prog4 {
                 break;
             }
             int queryNum = Integer.parseInt(input);
-            prog4.runQuery(queryNum);
             prog4.runQuery(queryNum, null);
         }
     }
@@ -100,6 +99,9 @@ public class Prog4 {
 
         // setting the index to use for the command in the array
         cmdNumber -= 1;
+        
+        return true;
+    }
 
     // ---------------------------------- MASON CODE
     // -------------------------------------------- //
@@ -123,70 +125,10 @@ public class Prog4 {
      * }
      */
 
-    // private static boolean PromptUser() {
-
-    // // ask user what they want to do
-    // System.out.println(
-    // "Select which operation you would like to perform by entering the labeled
-    // number:\n"
-
-    // + "(1) Print customer's total bill.\n"
-    // + "(2) Print all customers staying at this location.\n"
-    // + "(3) Print the schedule of staff for a given week.\n"
-    // + "(4) Print the average ratings of amenities within a two day range.\n"
-    // + "(5) TBD\n"
-    // + "(6) Insert new record.\n"
-    // + "(7) Delete existing record.\n"
-    // + "(8) Update existing record.\n"
-    // + "Or enter q to quit.");
-
-    // // collect user input and verify
-    // Scanner scanner = new Scanner(System.in);
-
-    // // check if quit command
-    // String input = scanner.nextLine().strip();
-    // scanner.close();
-    // if (input.equals("Q") || input.equals("q")) {
-    // return false;
-    // }
-
-    // // check if input is valid number and within bounds. if invalid, return and
-    // do
-    // // loop again
-    // int cmdNumber = 0;
-    // try {
-    // cmdNumber = Integer.parseInt(input);
-    // } catch (Exception e) {
-    // System.out.println("Enter a valid number.");
-    // return true;
-    // }
-    // if (cmdNumber < 1 || cmdNumber > 8) {
-    // System.out.println("Enter a number between 1 and 8.");
-    // return true;
-    // }
-
-        // do command based on user input TODO this interface has been removed
-        //cmdActions[cmdNumber].cmd();
-    // // setting the index to use for the command in the array
-    // cmdNumber -= 1;
-
-        // do the loop again
-        return true;
-    // // do command based on user input
-    // cmdActions[cmdNumber].cmd();
-
-    }
-
-    private static void ExecuteSQLCommand(String cmd) {
-    // // do the loop again
-    // return true;
-
-    // }
-
     // ----------------------------------- THIS SECTION IS FOR TABLE UPDATES ----------------------------------- //
 
 
-    private static void RecordInsertion() {
+
     private String RecordInsertion() {
 
         // prompt user
@@ -355,12 +297,9 @@ public class Prog4 {
         sqlCmd.append("(" + cols + ")");
         sqlCmd.append("VALUES (" + values + ")");
 
-        ExecuteSQLCommand(sqlCmd.toString());
-
         return sqlCmd.toString();
     }
 
-    private static void RecordDeletion() {
     private String RecordDeletion() {
 
         // prompt user
@@ -452,15 +391,12 @@ public class Prog4 {
 
         scanner.close();
 
-        ExecuteSQLCommand(sqlCmd.toString());
-
         return sqlCmd.toString();
     }
 
     
     // UPDATE Hotel_table_ SET _columnN_ = _valueN_, ... WHERE _primarykey(s)_ = _given_
     // this command is then sent off to the execute method.
-    private static void RecordUpdate() {
     private String RecordUpdate() {
 
         System.out.println("Specify the table you are updating: ");
@@ -711,7 +647,6 @@ public class Prog4 {
     // ----------------------------------- //
 
     // TODO: Query parameters need sanitization?
-    public void runQuery(int queryNum) {
     public void runQuery(int queryNum, String testFile) {
 
         final String oracleURL = // Magic lectura -> aloe access spell
@@ -747,7 +682,6 @@ public class Prog4 {
         String date = "";
         String date1 = "";
         String date2 = "";
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader r = null;
         if (testFile == null) {
             r = new BufferedReader(new InputStreamReader(System.in));
@@ -764,7 +698,6 @@ public class Prog4 {
                 case 1:
                     System.out.println("Enter clientId: ");
                     input = r.readLine();
-                    int clientId = Integer.parseInt(input);
                     String clientId = input;
                     query = String.format(Queries.query1, clientId, clientId);
                     break;

@@ -50,19 +50,7 @@ public class Room {
 	public float amenitiesTotal;
 	public float roomRate;
 	
-    public Room(String hotelId, float roomRate) {
-    	this.roomId = UUID.randomUUID().toString();
-        this.hotelId = hotelId;
-        this.amenitiesTotal = 0;
-        this.roomRate = roomRate;
-    }
     
-    @Override
-    public String toString() {
-    	return roomId + ", " + hotelId + ", " + amenitiesTotal + ", " + roomRate;
-    }
-    
-	public static String GetFields() {
 
 	/*---------------------------------------------------------------------
 	|  Constructor Room(String hotelId, float roomRate)
@@ -120,7 +108,7 @@ public class Room {
 	|
 	|  Returns: String. Comma-separated string of Room's column names.
 	*-------------------------------------------------------------------*/
-	public String GetFields() {
+	public static String GetFields() {
 		return "roomId, hotelId, amenitiesTotal, roomRate";
 	}
 

@@ -91,12 +91,10 @@ public class Rating {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-	    return ratingId + "," + rating + "," + comments + "," + amenityId;
 		return ratingId + "," + rating + "," + comments + "," + amenityId;
 	}
 
 	
-	public static String GetFields() {
 	/*---------------------------------------------------------------------
 	|  Method GetFields()
 	|

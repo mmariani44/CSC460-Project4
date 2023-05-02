@@ -101,12 +101,11 @@ public class Employee {
 	*-------------------------------------------------------------------*/
 	@Override
 	public String toString() {
-	    return employeeId + ", " + hotelId + ", " + firstName + ", " + lastName + ", " + duty + ", " + wage;
 		return employeeId + ", " + hotelId + ", " + firstName + ", " + lastName + ", " + duty + ", " + wage;
 	}
 
 	
-	public static String GetFields() {
+
 	/*---------------------------------------------------------------------
 	|  Method GetFields()
 	|
@@ -121,7 +120,7 @@ public class Employee {
 	|
 	|  Returns: String. Comma-separated string of Employee's column names.
 	*-------------------------------------------------------------------*/
-	public String GetFields() {
+	public static String GetFields() {
 		return "employeeId, hotelId, firstName, lastName, duty, wage";
 	}
 

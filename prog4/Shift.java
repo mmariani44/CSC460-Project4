@@ -70,15 +70,6 @@ public class Shift {
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
 	}
-<<<<<<< HEAD
-	
-    @Override
-    public String toString() {
-    	return employeeId + ", " + dateStart + ", " + dateEnd;
-    }
-	
-	public static String GetFields() {
-=======
 
 	/*---------------------------------------------------------------------
 	|  Method toString()
@@ -114,7 +105,6 @@ public class Shift {
 	|  Returns: String. Comma-separated string of Shift's column names.
 	*-------------------------------------------------------------------*/
 	public String GetFields() {
->>>>>>> 9f78b4ed43650b836da33e0b9cba7704f0e008a9
 		return "employeeId, dateStart, dateEnd";
 	}
 	

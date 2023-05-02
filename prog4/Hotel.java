@@ -98,7 +98,7 @@ public class Hotel {
 	|
 	|  Returns: String. Comma-separated string of Hotel's column names.
 	*-------------------------------------------------------------------*/
-	public String GetFields() {
+	public static String GetFields() {
 		return "hotelId, name";
 	}
 
