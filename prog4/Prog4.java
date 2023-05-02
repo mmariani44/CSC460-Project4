@@ -30,7 +30,7 @@ public class Prog4 {
                     + "(2) Print all customers staying at this location.\n"
                     + "(3) Print the schedule of staff for a given week.\n"
                     + "(4) Print the average ratings of amenities within a two day range.\n"
-                    + "(5) TBD\n"
+                    + "(5) Print total revenue between two dates.\n"
                     + "(6) Insert new record.\n"
                     + "(7) Delete existing record.\n"
                     + "(8) Update existing record.\n"
@@ -359,7 +359,6 @@ public class Prog4 {
 
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE Hotel");
-        StringBuilder sqlCmd = new StringBuilder();
 
         int i = 0;
         
@@ -393,7 +392,7 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "clientId = " + clientId);
+            sb.append("WHERE " + "clientId = '" + clientId + "'");
         }
         else if (input.toLowerCase().equals("booking")) {
             sb.append("Booking SET ");
@@ -428,7 +427,7 @@ public class Prog4 {
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
             sb.append("WHERE " + "clientId = " + bookingArray[0].strip() + " AND hotelId = "
                     + bookingArray[1].strip()
-                    + " AND roomId = " + bookingArray[2].strip() + " AND startDate = " + bookingArray[0].strip());
+                    + " AND roomId = '" + bookingArray[2].strip() + "' AND startDate = " + bookingArray[0].strip());
         }
         else if (input.toLowerCase().equals("hotel")) {
             sb.append("Hotel SET ");
@@ -460,7 +459,7 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "hotelId = " + hotelId);
+            sb.append("WHERE " + "hotelId = '" + hotelId + "'");
         }
         else if (input.toLowerCase().equals("room")) {
             sb.append("Room SET ");
@@ -493,7 +492,7 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "roomId = " + roomArray[0].strip() + " AND hotelId = " + roomArray[1].strip());
+            sb.append("WHERE " + "roomId = '" + roomArray[0].strip() + "' AND hotelId = '" + roomArray[1].strip() + "'");
         }
         else if (input.toLowerCase().equals("amenity")) {
             sb.append("Amenity SET ");
@@ -526,8 +525,8 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "amenityId = " + amenityArray[0].strip() + " AND hotelId = "
-                    + amenityArray[1].strip());
+            sb.append("WHERE " + "amenityId = '" + amenityArray[0].strip() + "' AND hotelId = '"
+                    + amenityArray[1].strip() + "'");
         }
         else if (input.toLowerCase().equals("rating")) {
             sb.append("Rating SET ");
@@ -559,7 +558,7 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "ratingId = " + ratingId);
+            sb.append("WHERE " + "ratingId = '" + ratingId + "'");
         }
         else if (input.toLowerCase().equals("employee")) {
             sb.append("Employee SET ");
@@ -590,8 +589,8 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "employeeId = " + employeeArray[0].strip() + " AND hotelId = "
-                    + employeeArray[1].strip());
+            sb.append("WHERE " + "employeeId = '" + employeeArray[0].strip() + "' AND hotelId = '"
+                    + employeeArray[1].strip() + "'");
         }
         else if (input.toLowerCase().equals("shift")) {
             sb.append("Shift SET ");
@@ -625,14 +624,25 @@ public class Prog4 {
             }
 
             sb.deleteCharAt(sb.length() - 2); // remove comma from last item
-            sb.append("WHERE " + "employeeId = " + shiftArray[0].strip() + " AND hotelId = " + shiftArray[1].strip()
-                    + " AND dateStart = " + shiftArray[2].strip());
+            sb.append("WHERE " + "employeeId = '" + shiftArray[0].strip() + "' AND hotelId = '" + shiftArray[1].strip()
+                    + "' AND dateStart = " + shiftArray[2].strip());
         }
 
         scanner.close();
         
-        return sqlCmd.toString();
+        System.out.println("printing query: " + sb.toString());
+        
+        return sb.toString();
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     // ----------------------------------- EVERYTHING BELOW IS FOR THE QUERIES
     // ----------------------------------- //
@@ -736,6 +746,9 @@ public class Prog4 {
             System.err.println("Error reading input");
 
         }
+        
+        // print current query
+        System.out.println("Executing SQL Statement: " + query);
         
         // Sending the query to the DBMS, and displaying results
         Statement stmt = null;
